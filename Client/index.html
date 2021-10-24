@@ -4,19 +4,40 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">    
     <link rel = "stylesheet" href = "stylesheet.css">
     <title>Drums-and-Database</title>
 </head>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand h1" href="/"> Drums and Database </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <li><strong>Home</strong></li>
+                        <li><a class="nav-link" href="login.html">Login</a></li>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
 <body>
     <main>
         <label>Name:</label>
         <input type="text" id= "name-input">
         <button id="add-name-btn">Add Name</button>
         <br><br><br>
-        <div>
+        <!-- <div>
             <input placeholder="Search By Name" id = "search-input">
             <button id= "search-btn">Search</button>
-        </div>
+        </div> -->
         <table id="table">
             <thead>
                 <th>ID</th>
@@ -32,9 +53,23 @@
             <input type="text" id="update-name-input">
             <button id="update-row-btn">Update</button>
         </section>
+
+        <div class="input-group mb-3 input-group-lg">
+            <input type="text" class="form-control" id = "search-cat-input" placeholder = "Search songs, artists, genre, lyrics, and more ..." aria-label="Text input with dropdown button">
+            <select class="form-select-md" id="searchSelect">
+                <option selected> Categories </option>
+                <option value="1"> Song </option>
+                <option value="2"> Artist </option>
+                <option value="3"> Genre </option>
+                <option value="3"> Lyrics </option>
+              </select>
+            <button class="btn btn-outline-secondary" type="button" id="search-cat-btn"> Search </button>
+          </div>
+
      </main>
      <script src = "index.js"></script>
-</body>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    </body>
 </html>
 
 
