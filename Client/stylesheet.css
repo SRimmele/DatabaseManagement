@@ -1,0 +1,15 @@
+main{
+    width: 50%; 
+    margin: 50px auto; 
+    text-align: center; 
+}
+
+table, th, td{
+    margin: 50px auto; 
+    border-collapse: collapse;
+    border: 1px solid #000;
+}
+
+th, td{
+    padding: 5px; 
+}
