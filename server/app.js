@@ -76,4 +76,15 @@ app.get('/search/:name', (request, response) => {
     .catch(err => console.log(err));
 })
 
+app.get('/search/:artistname', (request, response) => {
+    const { artistname } = request.params;
+    const db = dbService.getDbServiceInstance();
+
+    const result = db.searchByArtistName(artistname);
+    
+    result
+    .then(data => response.json({data : data}))
+    .catch(err => console.log(err));
+})
+
 app.listen(process.env.PORT, () => console.log('app is running'));

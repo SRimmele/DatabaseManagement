@@ -133,6 +133,23 @@ class DbService {
             console.log(error);
         }
     }
+
+    async searchByArtistName(artistName) {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM artist WHERE artistName = ?;";
+
+                connection.query(query, [artistName], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                })
+            });
+
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
 
 module.exports = DbService;

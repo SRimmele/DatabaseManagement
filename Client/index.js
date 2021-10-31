@@ -15,10 +15,21 @@ document.querySelector('table tbody').addEventListener('click', function(event) 
 });
 
 const updateBtn = document.querySelector('#update-row-btn');
-const searchBtn = document.querySelector('#search-cat-btn');
+const searchCatBtn = document.querySelector('#search-cat-btn');
+const searchBtn = document.querySelector('#search-btn');
 
 searchBtn.onclick = function() {
+    //const searchValue = document.querySelector('#search-cat-input').value;
+    const searchValue = document.querySelector('#search-input').value;
+
+    fetch('http://localhost:5000/search/' + searchValue)
+    .then(response => response.json())
+    .then(data => loadHTMLTable(data['data']));
+}
+
+searchCatBtn.onclick = function() {
     const searchValue = document.querySelector('#search-cat-input').value;
+    //const searchValue = document.querySelector('#search-input').value;
 
     fetch('http://localhost:5000/search/' + searchValue)
     .then(response => response.json())
@@ -132,6 +143,32 @@ function loadHTMLTable(data) {
         tableHtml += `<td>${new Date(DateAdded).toLocaleString()}</td>`;
         tableHtml += `<td><button class="delete-row-btn" data-id=${ID}>Delete</td>`;
         tableHtml += `<td><button class="edit-row-btn" data-id=${ID}>Edit</td>`;
+        tableHtml += "</tr>";
+    });
+
+    table.innerHTML = tableHtml;
+}
+
+function loadArtistHTMLTable(data) {
+    const table = document.querySelector('table tbody');
+
+    if (data.length === 0) {
+        table.innerHTML = "<tr><td class='no-data' colspan='5'>No Data</td></tr>";
+        return;
+    }
+
+    let tableHtml = "";
+
+    data.forEach(function ({artistID, artistName, songAmt, popularity, link, mainGenreID, otherGenreID}) {
+        tableHtml += "<tr>";
+        tableHtml += `<td>${artistID}</td>`;
+        tableHtml += `<td>${artistName}</td>`;
+        tableHtml += `<td>${songAmt}</td>`;
+        tableHtml += `<td>${popularity}</td>`;
+        tableHtml += `<td>${link}</td>`;
+        tableHtml += `<td>${mainGenreID}</td>`;
+        tableHtml += `<td>${otherGenreID}</td>`;
+
         tableHtml += "</tr>";
     });
 
