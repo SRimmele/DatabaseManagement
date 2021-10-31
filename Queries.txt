@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS Recent_Songs (
 );
 
 //add a user
-
+INSERT INTO User VALUES ()
 
 //songs by artist
 SELECT * FROM Song WHERE artistID IN ( SELECT artistID FROM Artist WHERE artistName LIKE CONCAT('%', ?, '%') ORDER BY artistName DESC;
