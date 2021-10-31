@@ -13,8 +13,8 @@ CREATE TABLE IF NOT EXISTS Artist (
 	songAmt INT (3) NOT NULL,
 	popularity DOUBLE NOT NULL,
 	link VARCHAR (255),
-	mainGenreID VARCHAR (100) NOT NULL,
-	otherGenreID VARCHAR (100) NOT NULL,
+	mainGenre VARCHAR (100) NOT NULL,
+	otherGenre VARCHAR (100) NOT NULL,
 ); 
 
 CREATE TABLE IF NOT EXISTS Language (
@@ -57,9 +57,61 @@ CREATE TABLE IF NOT EXISTS Users (
 	
 CREATE TABLE IF NOT EXISTS Friends (
 	userID INT(3) NOT NULL, 
-	connectedID INT(3) NOT NULL, 
+	connectedToID INT(3) NOT NULL, 
   FOREIGN KEY (userID) REFERENCES User(userID), 
-  FOREIGN KEY (connectedID) REFERENCES User(userID), 
-  PRIMARY KEY(userID, connectedID)
+  FOREIGN KEY (connectedToID) REFERENCES User(userID), 
+  PRIMARY KEY(userID, connectedToID)
 ); 
 
+CREATE TABLE IF NOT EXISTS Recent_Songs (
+  userID INT (3) NOT NULL PRIMARY KEY,
+  songIDFirst INT (5),
+  songIDSecond INT (5),
+  songIDThird INT (5),
+  songIDFourth INT (5),
+  songIDFifth INT (5),
+  FOREIGN KEY (userID) REFERENCES User(userID),
+  FOREIGN KEY (songIDFirst) REFERENCES Song(songID),
+  FOREIGN KEY (songIDSecond) REFERENCES Song(songID),
+  FOREIGN KEY (songIDThird) REFERENCES Song(songID),
+  FOREIGN KEY (songIDFourth) REFERENCES Song(songID),
+  FOREIGN KEY (songIDFifth) REFERENCES Song(songID)
+);
+
+//add a user
+
+
+//songs by artist
+SELECT * FROM Song WHERE artistID IN ( SELECT artistID FROM Artist WHERE artistName LIKE CONCAT('%', ?, '%') ORDER BY artistName DESC;
+
+//songs by title
+SELECT * FROM Song WHERE songName LIKE CONCAT('%', ?, '%') ORDER BY songName DESC;
+
+//songs by lyrics
+SELECT * FROM Song WHERE lyrics LIKE CONCAT('%', ?, '%') ORDER BY songName DESC;
+
+//songs by genre (note: both ? values should be filled by the same user input)
+SELECT * FROM Song WHERE artistID IN SELECT artistID FROM Artist WHERE mainGenre LIKE CONCAT('%', ?, '%') OR otherGenre LIKE CONCAT('%', ?, '%') ORDER BY songName DESC;
+
+//show all playlists for user
+SELECT title FROM Playlist WHERE userID IN SELECT userID FROM user_tracker ORDER BY title DESC;
+
+//selected playlist for user
+SELCT * FROM Playlist_Songs WHERE playlistID = ? ORDER BY position ASC;
+
+//show all of user's friends
+SELECT username FROM User WHERE userID IN SELECT connectedToID FROM friends WHERE userID IN SELECT userID FROM user_tracker ORDER BY connectedToID;
+
+//show selected friend for user
+SELECT userID, username, firstName, lastName, age FROM User WHERE userID IN SELECT userID FROM User WHERE username = ?;
+
+//show recently listened to
+SELECT * FROM Song WHERE songID IN SELECT songIDFirst, songIDSecond, songIDThird, songIDFourth, songIDFifth FROM Recent_Songs WHERE userID IN SELECT userID FROM user_tracker;
+
+//show recently listened to by friend
+SELECT * FROM Song WHERE songID IN SELECT songIDFirst, songIDSecond, songIDThird, songIDFourth, songIDFifth FROM Recent_Songs WHERE userID IN SELECT userID FROM User WHERE username = ?;
+
+//Advanced search (subject to major change)
+SELECT * FROM Song WHERE songID IN
+  SELECT songID FROM Song WHERE 
+    ( artistID IN SELECT artistID FROM Artist WHERE ( artistName LIKE CONCAT('%', ?, '%') OR 
