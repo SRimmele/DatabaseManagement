@@ -15,21 +15,11 @@ document.querySelector('table tbody').addEventListener('click', function(event) 
 });
 
 const updateBtn = document.querySelector('#update-row-btn');
-const searchCatBtn = document.querySelector('#search-cat-btn');
+//const searchCatBtn = document.querySelector('#search-cat-btn');
 const searchBtn = document.querySelector('#search-btn');
 
 searchBtn.onclick = function() {
-    //const searchValue = document.querySelector('#search-cat-input').value;
     const searchValue = document.querySelector('#search-input').value;
-
-    fetch('http://localhost:5000/search/' + searchValue)
-    .then(response => response.json())
-    .then(data => loadHTMLTable(data['data']));
-}
-
-searchCatBtn.onclick = function() {
-    const searchValue = document.querySelector('#search-cat-input').value;
-    //const searchValue = document.querySelector('#search-input').value;
 
     fetch('http://localhost:5000/search/' + searchValue)
     .then(response => response.json())
@@ -104,15 +94,6 @@ function insertRowIntoTable(data) {
 
     let tableHtml = "<tr>";
 
-    for (var key in data) {
-        if (data.hasOwnProperty(key)) {
-            if (key === 'DateAdded') {
-                data[key] = new Date(data[key]).toLocaleString();
-            }
-            tableHtml += `<td>${data[key]}</td>`;
-        }
-    }
-
     tableHtml += `<td><button class="delete-row-btn" data-id=${data.ID}>Delete</td>`;
     tableHtml += `<td><button class="edit-row-btn" data-id=${data.ID}>Edit</td>`;
 
@@ -130,30 +111,7 @@ function loadHTMLTable(data) {
     const table = document.querySelector('table tbody');
 
     if (data.length === 0) {
-        table.innerHTML = "<tr><td class='no-data' colspan='5'>No Data</td></tr>";
-        return;
-    }
-
-    let tableHtml = "";
-
-    data.forEach(function ({ID, Name, DateAdded}) {
-        tableHtml += "<tr>";
-        tableHtml += `<td>${ID}</td>`;
-        tableHtml += `<td>${Name}</td>`;
-        tableHtml += `<td>${new Date(DateAdded).toLocaleString()}</td>`;
-        tableHtml += `<td><button class="delete-row-btn" data-id=${ID}>Delete</td>`;
-        tableHtml += `<td><button class="edit-row-btn" data-id=${ID}>Edit</td>`;
-        tableHtml += "</tr>";
-    });
-
-    table.innerHTML = tableHtml;
-}
-
-function loadArtistHTMLTable(data) {
-    const table = document.querySelector('table tbody');
-
-    if (data.length === 0) {
-        table.innerHTML = "<tr><td class='no-data' colspan='5'>No Data</td></tr>";
+        table.innerHTML = "<tr><td class='no-data' colspan='8'>No Data</td></tr>";
         return;
     }
 
@@ -161,16 +119,46 @@ function loadArtistHTMLTable(data) {
 
     data.forEach(function ({artistID, artistName, songAmt, popularity, link, mainGenreID, otherGenreID}) {
         tableHtml += "<tr>";
-        tableHtml += `<td>${artistID}</td>`;
         tableHtml += `<td>${artistName}</td>`;
         tableHtml += `<td>${songAmt}</td>`;
-        tableHtml += `<td>${popularity}</td>`;
+        tableHtml += `<td>${popularity}</td>`; 
         tableHtml += `<td>${link}</td>`;
-        tableHtml += `<td>${mainGenreID}</td>`;
-        tableHtml += `<td>${otherGenreID}</td>`;
-
+        tableHtml += `<td>${mainGenreID}</td>`; 
+        tableHtml += `<td>${otherGenreID}</td>`; 
+        tableHtml += `<td><button class="delete-row-btn" data-id=${artistID}>Delete</td>`;
+        tableHtml += `<td><button class="edit-row-btn" data-id=${artistID}>Edit</td>`;
         tableHtml += "</tr>";
     });
 
     table.innerHTML = tableHtml;
+}
+
+//setCookie function
+//for login, call as setCookie(activeUser, [userID])
+function setCookie(cname, cvalue)
+{
+	document.cookie = cvalue;
+}
+
+//getCookie(activeUser) function returns userID as string
+//
+//to retrieve userID call getCookie(activeUser)
+function getCookie(cname)
+{
+	let name = cname + "=";
+	let decodedCookie = decodeURIComponent(document.cookie);
+	let ca = decodedCookie.split(';');
+	for(let i = 0; i < ca.length; i++)
+	{
+		let c = ca[i];
+		while (c.charAt(0) == ' ')
+		{
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0)
+		{
+			return c.substring(name.length, c.length);
+		}
+	}
+	return "";
 }

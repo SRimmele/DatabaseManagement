@@ -3,24 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width = device-width, initial-scale = 1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">    
-    <link rel = "stylesheet" href = "stylesheet.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bilbo+Swash+Caps&display=swap" rel="stylesheet">
+    <link rel = "stylesheet" href = "assets/stylesheet.css">
     <title>Drums-and-Database</title>
+
+    <style>
+        body {
+            background-image: url("assets/guitar_background.jpg");
+        }
+    </style>
 </head>
 
 <header>
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
-            <a class="navbar-brand h1" href="/"> Drums and Database </a>
+            <a class="navbar-brand h1" href="index.html">
+                Drums & Database 
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <li><strong>Home</strong></li>
-                        <li><a class="nav-link" href="login.html">Login</a></li>
+                        <a class="nav-link" href="#">
+                            Advanced Search
+                        </a>
+                    </li>
+                    <li class = "nav-item">
+                        <a class="nav-link" href="#">
+                            Playlist
+                        </a>
+                    </li>
+                    <li class = "nav-item">
+                        <a class="nav-link" href="#">
+                            Friends
+                        </a>
+                    </li>
+                </ul>
+                <ul class = "navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class = "nav-item">
+                        <a class = "nav-link" href="login.html">Login</a>
                     </li>
                 </ul>
             </div>
@@ -28,33 +55,41 @@
     </nav>
 </header>
 
-<body class = "background">
+<body>
     <main>
-        <label>Name:</label>
-        <input type="text" id= "name-input">
-        <button id="add-name-btn">Add Name</button>
-        <br><br><br>
-        <div>
-            <input placeholder="Search By Name" id = "search-input">
-            <button id= "search-btn">Search</button>
+        <div class = "form-inline px-5 dflex justify-content-md-center align-center text-center pt-5">
+            <div class="input-group mb-3 input-group-lg mt-3 pt-5 px-5">
+                <!-- text search -->
+                <input type="text" class="form-control form-control-lg" id = "search-input" placeholder = "Search songs, artists, genre, lyrics, and more ..." aria-label="Text input with dropdown button">
+                <!-- category search -->
+                <select class="form select" id="searchSelect">
+                    <option selected> Categories </option>
+                    <option value="1"> Song </option>
+                    <option value="2"> Artist </option>
+                    <option value="3"> Genre </option>
+                    <option value="4"> Lyrics </option>
+                </select>
+                <!-- submit search button -->
+                <button class="btn btn-secondary" type="submit" id="search-btn"> Search </button>
+            </div>
+    
+            <!-- link to adv.search page -->
+            <a href = "#"> Advanced Search </a>
         </div>
-        <table id="table">
+
+            <!-- RETURN SEARCH RESULTS -->
+    <div>
+
+        <table id="table table-light">
             <thead>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Date Added</th>
-                <th>Delete</th>
-                <th>Edit</th>
-            </thead>
-            <tbody></tbody> <!--Empty body here, uses JS File-->
-        </table> 
-        <table id="ArtistTable">
-            <thead>
-                <th>ID</th>
                 <th>Artist Name</th>
                 <th>Song Amount</th>
-                <th>Popularity</t></th>
+                <th>Popularity</th>
+                <th>Link</th>
                 <th>Main Genre</th>
+                <th>Other Genres</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </thead>
             <tbody></tbody> <!--Empty body here, uses JS File-->
         </table> 
@@ -64,17 +99,7 @@
             <button id="update-row-btn">Update</button>
         </section>
 
-        <div class="input-group mb-3 input-group-lg">
-            <input type="text" class="form-control" id = "search-cat-input" placeholder = "Search songs, artists, genre, lyrics, and more ..." aria-label="Text input with dropdown button">
-            <select class="form-select-md" id="searchSelect">
-                <option selected> Categories </option>
-                <option value="1"> Song </option>
-                <option value="2"> Artist </option>
-                <option value="3"> Genre </option>
-                <option value="3"> Lyrics </option>
-              </select>
-            <button class="btn btn-outline-secondary" type="button" id="search-cat-btn"> Search </button>
-          </div>
+    </div>
 
      </main>
      <script src = "index.js"></script>
