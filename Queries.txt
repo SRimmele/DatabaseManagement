@@ -1,0 +1,65 @@
+USE app;
+
+CREATE TABLE IF NOT EXISTS Playlist (
+  playlistID INT (4) PRIMARY KEY, 
+  title VARCHAR (255) NOT NULL,
+  userID INT (3) NOT NULL,
+  FOREIGN KEY (userID) REFERENCES User(userID)
+); 
+
+CREATE TABLE IF NOT EXISTS Artist (
+	artistID INT(4) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	artistName VARCHAR(100) NOT NULL,
+	songAmt INT (3) NOT NULL,
+	popularity DOUBLE NOT NULL,
+	link VARCHAR (255),
+	mainGenreID VARCHAR (100) NOT NULL,
+	otherGenreID VARCHAR (100) NOT NULL,
+); 
+
+CREATE TABLE IF NOT EXISTS Language (
+  languageID INT (3) AUTO_INCREMENT PRIMARY KEY, 
+  languageName VARCHAR (20) NOT NULL UNIQUE
+); 
+
+CREATE TABLE IF NOT EXISTS Song (
+  songID INT (5) AUTO_INCREMENT PRIMARY KEY, 
+  songName VARCHAR (255) NOT NULL, 
+  link VARCHAR (255) NOT NULL, 
+  lyrics VARCHAR (255) NOT NULL, 
+  artistID INT (4) NOT NULL,
+  languageID INT (3) NOT NULL,
+  FOREIGN KEY (artistID) REFERENCES Artist(artistID), 
+  FOREIGN KEY (languageID) REFERENCES Language(languageID)
+); 
+
+
+
+CREATE TABLE IF NOT EXISTS Playlist_Songs (
+  position INT (4) NOT NULL, 
+  playlistID INT (4) NOT NULL,
+  songID INT (5) NOT NULL,
+  FOREIGN KEY (playlistID) REFERENCES Playlist (playlistID), 
+  FOREIGN KEY (songID) REFERENCES Song (songID), 
+  PRIMARY KEY (position, playlistID, songID)
+); 
+
+
+CREATE TABLE IF NOT EXISTS Users (
+  userID INT (3) AUTO_INCREMENT PRIMARY KEY, 
+  username VARCHAR (100) NOT NULL UNIQUE CHECK (username < 101 AND username > 3),
+  password VARCHAR (30) NOT NULL, 
+  email VARCHAR (500) NOT NULL UNIQUE,
+  firstName VARCHAR (30) NOT NULL, 
+  lastName VARCHAR (30) NOT NULL, 
+  age INT (3) NOT NULL
+); 
+	
+CREATE TABLE IF NOT EXISTS Friends (
+	userID INT(3) NOT NULL, 
+	connectedID INT(3) NOT NULL, 
+  FOREIGN KEY (userID) REFERENCES User(userID), 
+  FOREIGN KEY (connectedID) REFERENCES User(userID), 
+  PRIMARY KEY(userID, connectedID)
+); 
+
