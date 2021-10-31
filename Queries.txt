@@ -13,8 +13,8 @@ CREATE TABLE IF NOT EXISTS Artist (
 	songAmt INT (3) NOT NULL,
 	popularity DOUBLE NOT NULL,
 	link VARCHAR (255),
-	mainGenre VARCHAR (100) NOT NULL,
-	otherGenre VARCHAR (100) NOT NULL,
+	mainGenreID VARCHAR (100) NOT NULL,
+	otherGenreID VARCHAR (100) NOT NULL,
 ); 
 
 CREATE TABLE IF NOT EXISTS Language (
@@ -78,11 +78,47 @@ CREATE TABLE IF NOT EXISTS Recent_Songs (
   FOREIGN KEY (songIDFifth) REFERENCES Song(songID)
 );
 
+//cookie functions
+//call with setCookie(activeUser, [userID])
+
+function setCookie(cname, cvalue)
+{
+	document.cookie = cname + "=" + cvalue;
+}
+
+//getCookie(activeUser) returns userID as string
+
+function getCookie(cname)
+{
+	let name = cname + "=";
+	let decodedCookie = decodeURIComponent(document.cookie);
+	let ca = decodedCookie.split(';');
+	for(let i = 0; i < ca.length; i++)
+	{
+		let c = ca[i];
+		while (c.charAt(0) == ' ')
+		{
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0)
+		{
+			return c.substring(name.length, c.length);
+		}
+	}
+	return "";
+}
+
 //add a user
-INSERT INTO User VALUES ()
+INSERT INTO User (username, password, email, firstName, lastName, age) VALUES (?, ?, ?, ?, ?, ?);
+
+//update password
+UPDATE User SET password = ? WHERE userID IN getCookie(activeUser);
+
+//delete a user
+DELETE FROM User where userID IN getCookie(activeUser);
 
 //songs by artist
-SELECT * FROM Song WHERE artistID IN ( SELECT artistID FROM Artist WHERE artistName LIKE CONCAT('%', ?, '%') ORDER BY artistName DESC;
+SELECT * FROM Song WHERE artistID IN ( SELECT artistID FROM Artist WHERE artistName LIKE CONCAT('%', ?, '%') ) ORDER BY artistName DESC;
 
 //songs by title
 SELECT * FROM Song WHERE songName LIKE CONCAT('%', ?, '%') ORDER BY songName DESC;
@@ -91,27 +127,30 @@ SELECT * FROM Song WHERE songName LIKE CONCAT('%', ?, '%') ORDER BY songName DES
 SELECT * FROM Song WHERE lyrics LIKE CONCAT('%', ?, '%') ORDER BY songName DESC;
 
 //songs by genre (note: both ? values should be filled by the same user input)
-SELECT * FROM Song WHERE artistID IN SELECT artistID FROM Artist WHERE mainGenre LIKE CONCAT('%', ?, '%') OR otherGenre LIKE CONCAT('%', ?, '%') ORDER BY songName DESC;
+SELECT * FROM Song WHERE artistID IN SELECT artistID FROM Artist WHERE mainGenreID LIKE CONCAT('%', ?, '%') OR otherGenreID LIKE CONCAT('%', ?, '%') ORDER BY songName DESC;
 
 //show all playlists for user
-SELECT title FROM Playlist WHERE userID IN SELECT userID FROM user_tracker ORDER BY title DESC;
+SELECT * FROM Playlist WHERE userID IN SELECT userID FROM user_tracker ORDER BY title DESC;
 
 //selected playlist for user
-SELCT * FROM Playlist_Songs WHERE playlistID = ? ORDER BY position ASC;
+//(Note: [SELECTION] should be initialized with playlistID by whatever link/button/etc the user uses to select a playlist from the list)
+SELCT * FROM Playlist_Songs WHERE playlistID = [SELECTION] ORDER BY position ASC;
 
 //show all of user's friends
-SELECT username FROM User WHERE userID IN SELECT connectedToID FROM friends WHERE userID IN SELECT userID FROM user_tracker ORDER BY connectedToID;
+SELECT * FROM User WHERE userID IN ( SELECT connectedToID FROM friends WHERE userID IN getCookie(activeUser)) ORDER BY connectedToID;
 
 //show selected friend for user
-SELECT userID, username, firstName, lastName, age FROM User WHERE userID IN SELECT userID FROM User WHERE username = ?;
+//(Note: [SELECTION] should be initialized with userID by whatever link/button/etc the user uses to select a friend from the list)
+SELECT userID, username, firstName, lastName, age FROM User WHERE userID = [SELECTION];
 
 //show recently listened to
-SELECT * FROM Song WHERE songID IN SELECT songIDFirst, songIDSecond, songIDThird, songIDFourth, songIDFifth FROM Recent_Songs WHERE userID IN SELECT userID FROM user_tracker;
+SELECT * FROM Song WHERE songID IN ( SELECT songIDFirst, songIDSecond, songIDThird, songIDFourth, songIDFifth FROM Recent_Songs WHERE userID IN ( SELECT userID FROM user_tracker));
 
 //show recently listened to by friend
-SELECT * FROM Song WHERE songID IN SELECT songIDFirst, songIDSecond, songIDThird, songIDFourth, songIDFifth FROM Recent_Songs WHERE userID IN SELECT userID FROM User WHERE username = ?;
+SELECT * FROM Song WHERE songID IN ( SELECT songIDFirst, songIDSecond, songIDThird, songIDFourth, songIDFifth FROM Recent_Songs WHERE userID IN ( SELECT userID FROM User WHERE username = ?));
 
-//Advanced search (subject to major change)
-SELECT * FROM Song WHERE songID IN
-  SELECT songID FROM Song WHERE 
-    ( artistID IN SELECT artistID FROM Artist WHERE ( artistName LIKE CONCAT('%', ?, '%') OR 
+//Advanced search (subject to major change) 
+//(note: [LIST_OF_TERMS] should be formatted as ('a', 'b', 'c', 'etc') where each term is one the user selected or input in the advanced search menu)
+//(note: [LIST_OF_TERMS] is generic and will have one instance each for artist name(s), genre(s), lyrics, and song name(s))
+//(note: each individual term should be formatted as CONCAT('%', ?, '%'))
+SELECT * FROM Song WHERE songID IN ( SELECT songID FROM Song WHERE ( artistID IN SELECT artistID FROM Artist WHERE ( artistName IN [LIST_OF_TERMS] OR mainGenreID IN [LIST_OF_TERMS] OR otherGenreID IN [LIST_OF_TERMS] ) OR lyrics IN [LIST_OF_TERMS] OR songName IN [LIST_OF_TERMS] )) ORDER BY songName DESC;

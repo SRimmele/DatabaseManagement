@@ -137,11 +137,11 @@ function loadHTMLTable(data) {
 //for login, call as setCookie(activeUser, [userID])
 function setCookie(cname, cvalue)
 {
-	document.cookie = cvalue;
+	document.cookie = cname + "=" + cvalue;
 }
 
 //getCookie(activeUser) function returns userID as string
-//
+//if the cookie has not been set, returns empty string
 //to retrieve userID call getCookie(activeUser)
 function getCookie(cname)
 {
