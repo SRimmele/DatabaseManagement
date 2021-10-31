@@ -24,10 +24,11 @@ class DbService {
         return instance ? instance : new DbService();
     }
 
+    //Working with the Artist Table
     async getAllData() {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM user_tracker;";
+                const query = "SELECT * FROM artist;";
 
                 connection.query(query, (err, results) => {
                     if (err) reject(new Error(err.message));
@@ -44,7 +45,7 @@ class DbService {
     async getData(id) {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM user_tracker WHERE ID = ?;";
+                const query = "SELECT * FROM artist WHERE artistID = ?;";
 
                 connection.query(query, [id], (err, results) => {
                     if (err) reject(new Error(err.message));
@@ -62,7 +63,7 @@ class DbService {
     async insertNewName(name) {
         try {
                 const insertId = await new Promise((resolve, reject) => {
-                const query = "INSERT INTO user_tracker (Name) VALUES (?);";
+                const query = "INSERT INTO artist (artistName) VALUES (?);";
 
                 connection.query(query, [name] , (err, result) => {
                     if (err) reject(new Error(err.message));
@@ -83,7 +84,7 @@ class DbService {
         try {
             id = parseInt(id, 10); 
             const response = await new Promise((resolve, reject) => {
-                const query = "DELETE FROM user_tracker WHERE id = ?";
+                const query = "DELETE FROM artist WHERE artistID = ?";
     
                 connection.query(query, [id] , (err, result) => {
                     if (err) reject(new Error(err.message));
@@ -102,7 +103,7 @@ class DbService {
         try {
             id = parseInt(id, 10); 
             const response = await new Promise((resolve, reject) => {
-                const query = "UPDATE user_tracker SET Name = ? WHERE ID = ?";
+                const query = "UPDATE artist SET artistName = ? WHERE artistID = ?";
     
                 connection.query(query, [name, id] , (err, result) => {
                     if (err) reject(new Error(err.message));
@@ -120,7 +121,7 @@ class DbService {
     async searchByName(name) {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM user_tracker WHERE name = ?;";
+                const query = "SELECT * FROM artist WHERE artistName LIKE CONCAT('%', ?, '%');";
 
                 connection.query(query, [name], (err, results) => {
                     if (err) reject(new Error(err.message));
@@ -134,20 +135,96 @@ class DbService {
         }
     }
 
-    async searchByArtistName(artistName) {
+    //Working with the User Table
+    async getAllData() {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM artist WHERE artistName = ?;";
+                const query = "SELECT * FROM users;";
 
-                connection.query(query, [artistName], (err, results) => {
+                connection.query(query, (err, results) => {
                     if (err) reject(new Error(err.message));
                     resolve(results);
                 })
             });
-
+            //console.log(response);
             return response;
         } catch (error) {
             console.log(error);
+        }
+    }
+
+    async getData(userId) {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM user WHERE userID = ?;";
+
+                connection.query(query, [userId], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                })
+            });
+            //console.log(response);
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async insertNewName(username) {
+        try {
+                const insertId = await new Promise((resolve, reject) => {
+                const query = "INSERT INTO user (username) VALUES (?);";
+
+                connection.query(query, [username] , (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    //console.log(result); 
+                    resolve(result.insertId);
+                })
+            });
+            //console.log(insertId);
+            const data = await this.getData(insertId);  
+            //console.log(data); 
+            return data; 
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async deleteRowById(userId) {
+        try {
+            userId = parseInt(userId, 10); 
+            const response = await new Promise((resolve, reject) => {
+                const query = "DELETE FROM user WHERE userID = ?";
+    
+                connection.query(query, [userId] , (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result.affectedRows);
+                })
+            });
+    
+            return response === 1 ? true : false;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    }
+
+    async updateNameById(userId, username) {
+        try {
+            userId = parseInt(userId, 10); 
+            const response = await new Promise((resolve, reject) => {
+                const query = "UPDATE user SET username = ? WHERE userID = ?";
+    
+                connection.query(query, [username, userId] , (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result.affectedRows);
+                })
+            });
+    
+            return response === 1 ? true : false;
+        } catch (error) {
+            console.log(error);
+            return false;
         }
     }
 }

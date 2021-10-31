@@ -11,22 +11,29 @@ app.use(express.json());
 app.use(express.urlencoded({ extended : false }));
 
 
-// create
-app.post('/insert', (request, response) => {
-    const { name } = request.body;
-    const db = dbService.getDbServiceInstance();
-    
-    const result = db.insertNewName(name);
-   // console.log(result); 
-    result
-    .then(value => {
-        console.log(value); 
-        return value; 
-    })
-    .then(data => response.json({ data: data}))
-    .catch(err => console.log(err));
+// create user accounts 
+app.post('/auth', function(request, response) {
+	var username = request.body.username;
+	var password = request.body.password;
+	if (username && password) {
+		connection.query('SELECT * FROM user WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
+			if (results.length > 0) {
+				request.session.loggedin = true;
+				request.session.username = username;
+				response.redirect('/home');
+			} else {
+				response.send('Incorrect Username and/or Password!');
+			}			
+			response.end();
+		});
+	} else {
+		response.send('Please enter Username and Password!');
+		response.end();
+	}
+});
 
-    //console.log(request, body); 
+app.get('/', function(request, response) {
+	response.sendFile(path.join(__dirname + '/login.html'));
 });
 
 // read
@@ -42,10 +49,10 @@ app.get('/getAll', (request, response) => {
 
 // update
 app.patch('/update', (request, response) => {
-    const { id, name } = request.body;
+    const { userId, username } = request.body;
     const db = dbService.getDbServiceInstance();
 
-    const result = db.updateNameById(id, name);
+    const result = db.updateNameById(userId, username);
     
     result
     .then(data => response.json({success : data}))
@@ -54,10 +61,10 @@ app.patch('/update', (request, response) => {
 
 // delete
 app.delete('/delete/:id', (request, response) => {
-    const { id } = request.params;
+    const { userId } = request.params;
     const db = dbService.getDbServiceInstance();
 
-    const result = db.deleteRowById(id);
+    const result = db.deleteRowById(userId);
     
     result
     .then(data => response.json({success : data}))
@@ -70,17 +77,6 @@ app.get('/search/:name', (request, response) => {
     const db = dbService.getDbServiceInstance();
 
     const result = db.searchByName(name);
-    
-    result
-    .then(data => response.json({data : data}))
-    .catch(err => console.log(err));
-})
-
-app.get('/search/:artistname', (request, response) => {
-    const { artistname } = request.params;
-    const db = dbService.getDbServiceInstance();
-
-    const result = db.searchByArtistName(artistname);
     
     result
     .then(data => response.json({data : data}))

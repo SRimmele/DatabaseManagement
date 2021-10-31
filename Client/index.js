@@ -16,7 +16,8 @@ document.querySelector('table tbody').addEventListener('click', function(event) 
 
 const updateBtn = document.querySelector('#update-row-btn');
 //const searchCatBtn = document.querySelector('#search-cat-btn');
-const searchBtn = document.querySelector('#search-btn');
+const searchBtn = document.querySelector('#search-btn'); 
+const createAcct = document.querySelector(`#create-acct-btn`); 
 
 searchBtn.onclick = function() {
     const searchValue = document.querySelector('#search-input').value;

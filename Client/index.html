@@ -57,12 +57,12 @@
 
 <body>
     <main>
-        <div class = "form-inline px-5 dflex justify-content-md-center align-center text-center pt-5">
+        <div class = "form-inline px-5 py-5 dflex justify-content-md-center align-center text-center pt-5">
             <div class="input-group mb-3 input-group-lg mt-3 pt-5 px-5">
                 <!-- text search -->
                 <input type="text" class="form-control form-control-lg" id = "search-input" placeholder = "Search songs, artists, genre, lyrics, and more ..." aria-label="Text input with dropdown button">
                 <!-- category search -->
-                <select class="form select" id="searchSelect">
+                <select class="form-select-md" id="searchSelect">
                     <option selected> Categories </option>
                     <option value="1"> Song </option>
                     <option value="2"> Artist </option>
@@ -70,36 +70,31 @@
                     <option value="4"> Lyrics </option>
                 </select>
                 <!-- submit search button -->
-                <button class="btn btn-secondary" type="submit" id="search-btn"> Search </button>
+                <button class="btn btn-secondary" type="submit" id="search-btn" onClick="location.href='searchResults.html'"> Search </button>
             </div>
-    
+        
             <!-- link to adv.search page -->
             <a href = "#"> Advanced Search </a>
         </div>
-
-            <!-- RETURN SEARCH RESULTS -->
-    <div>
-
-        <table id="table table-light">
-            <thead>
-                <th>Artist Name</th>
-                <th>Song Amount</th>
-                <th>Popularity</th>
-                <th>Link</th>
-                <th>Main Genre</th>
-                <th>Other Genres</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </thead>
-            <tbody></tbody> <!--Empty body here, uses JS File-->
-        </table> 
-        <section hidden id="update-row">
-            <label>Name:</label>
-            <input type="text" id="update-name-input">
-            <button id="update-row-btn">Update</button>
-        </section>
-
-    </div>
+        
+        <div></div>
+            <table id="table" class = "table table-light">
+                <thead>
+                    <th colspan = "8" class = "text-center">TOP RESULTS</td>
+                </thead>
+                <thead>
+                    <th>Artist Name</th>
+                    <th>Song Amount</th>
+                    <th>Popularity</th>
+                    <th>Link</th>
+                    <th>Main Genre</th>
+                    <th>Other Genres</th>
+                    <th>Delete</th>
+                    <th>Edit</th>
+                </thead>
+                <tbody></tbody> <!--Empty body here, uses JS File-->
+            </table> 
+        </div>
 
      </main>
      <script src = "index.js"></script>
