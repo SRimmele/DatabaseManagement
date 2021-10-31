@@ -12,6 +12,10 @@ app.use(express.urlencoded({ extended : false }));
 
 
 // create user accounts 
+app.get('/', function(request, response) {
+	response.sendFile(path.join(__dirname + '/login.html'));
+});
+
 app.post('/auth', function(request, response) {
 	var username = request.body.username;
 	var password = request.body.password;
@@ -30,10 +34,6 @@ app.post('/auth', function(request, response) {
 		response.send('Please enter Username and Password!');
 		response.end();
 	}
-});
-
-app.get('/', function(request, response) {
-	response.sendFile(path.join(__dirname + '/login.html'));
 });
 
 // read
