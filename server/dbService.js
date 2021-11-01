@@ -11,6 +11,8 @@ const connection = mysql.createConnection({
     port: process.env.DB_PORT
 });
 
+
+
 connection.connect((err) => {
     if (err) {
         console.log(err.message);
@@ -134,6 +136,7 @@ class DbService {
             console.log(error);
         }
     }; 
+    
 
 }
 
