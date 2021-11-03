@@ -115,7 +115,7 @@ UPDATE User SET password = ? WHERE userID IN getCookie(activeUser);
 DELETE FROM User where userID IN getCookie(activeUser);
 
 //songs by artist
-SELECT * FROM Song WHERE artistID IN ( SELECT artistID FROM Artist WHERE artistName LIKE CONCAT('%', ?, '%') ) ORDER BY artistName DESC;
+SELECT * FROM Song WHERE artistLink IN ( SELECT link FROM Artist WHERE artistName LIKE CONCAT('%', ?, '%') ) ORDER BY artistName DESC;
 
 //songs by title
 SELECT * FROM Song WHERE songName LIKE CONCAT('%', ?, '%') ORDER BY songName DESC;
@@ -124,10 +124,10 @@ SELECT * FROM Song WHERE songName LIKE CONCAT('%', ?, '%') ORDER BY songName DES
 SELECT * FROM Song WHERE lyrics LIKE CONCAT('%', ?, '%') ORDER BY songName DESC;
 
 //songs by genre (note: both ? values should be filled by the same user input)
-SELECT * FROM Song WHERE artistID IN SELECT artistID FROM Artist WHERE mainGenreID LIKE CONCAT('%', ?, '%') OR otherGenreID LIKE CONCAT('%', ?, '%') ORDER BY songName DESC;
+SELECT * FROM Song WHERE artistLink IN ( SELECT link FROM Artist WHERE mainGenreID LIKE CONCAT('%', ?, '%') OR otherGenreID LIKE CONCAT('%', ?, '%') ) ORDER BY songName DESC;
 
 //show all playlists for user
-SELECT * FROM Playlist WHERE userID IN SELECT userID FROM user_tracker ORDER BY title DESC;
+SELECT * FROM Playlist WHERE userID IN getCookie(activeUser) ORDER BY title DESC;
 
 //selected playlist for user
 //(Note: [SELECTION] should be initialized with playlistID by whatever link/button/etc the user uses to select a playlist from the list)
@@ -141,7 +141,7 @@ SELECT * FROM User WHERE userID IN ( SELECT connectedToID FROM friends WHERE use
 SELECT userID, username, firstName, lastName, age FROM User WHERE userID = [SELECTION];
 
 //show recently listened to
-SELECT * FROM Song WHERE songID IN ( SELECT songIDFirst, songIDSecond, songIDThird, songIDFourth, songIDFifth FROM Recent_Songs WHERE userID IN ( SELECT userID FROM user_tracker));
+SELECT * FROM Song WHERE songID IN ( SELECT songIDFirst, songIDSecond, songIDThird, songIDFourth, songIDFifth FROM Recent_Songs WHERE userID IN getCookie(activeUser));
 
 //show recently listened to by friend
 SELECT * FROM Song WHERE songID IN ( SELECT songIDFirst, songIDSecond, songIDThird, songIDFourth, songIDFifth FROM Recent_Songs WHERE userID IN ( SELECT userID FROM User WHERE username = ?));
@@ -150,4 +150,4 @@ SELECT * FROM Song WHERE songID IN ( SELECT songIDFirst, songIDSecond, songIDThi
 //(note: [LIST_OF_TERMS] should be formatted as ('a', 'b', 'c', 'etc') where each term is one the user selected or input in the advanced search menu)
 //(note: [LIST_OF_TERMS] is generic and will have one instance each for artist name(s), genre(s), lyrics, and song name(s))
 //(note: each individual term should be formatted as CONCAT('%', ?, '%'))
-SELECT * FROM Song WHERE songID IN ( SELECT songID FROM Song WHERE ( artistID IN SELECT artistID FROM Artist WHERE ( artistName IN [LIST_OF_TERMS] OR mainGenreID IN [LIST_OF_TERMS] OR otherGenreID IN [LIST_OF_TERMS] ) OR lyrics IN [LIST_OF_TERMS] OR songName IN [LIST_OF_TERMS] )) ORDER BY songName DESC;
+SELECT * FROM Song WHERE songID IN ( SELECT songID FROM Song WHERE artistLink IN ( SELECT link FROM Artist WHERE ( artistName IN [LIST_OF_TERMS] OR mainGenreID IN [LIST_OF_TERMS] OR otherGenreID IN [LIST_OF_TERMS] ) OR lyrics IN [LIST_OF_TERMS] OR songName IN [LIST_OF_TERMS] )) ORDER BY songName DESC;
