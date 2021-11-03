@@ -10,32 +10,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended : false }));
 
-
-// create user accounts 
-app.get('/', function(request, response) {
-	response.sendFile(path.join(__dirname + '/login.html'));
-});
-
-app.post('/auth', function(request, response) {
-	var username = request.body.username;
-	var password = request.body.password;
-	if (username && password) {
-		connection.query('SELECT * FROM user WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
-			if (results.length > 0) {
-				request.session.loggedin = true;
-				request.session.username = username;
-				response.redirect('/home');
-			} else {
-				response.send('Incorrect Username and/or Password!');
-			}			
-			response.end();
-		});
-	} else {
-		response.send('Please enter Username and Password!');
-		response.end();
-	}
-});
-
 // read
 app.get('/getAll', (request, response) => {
     const db = dbService.getDbServiceInstance();
@@ -49,10 +23,10 @@ app.get('/getAll', (request, response) => {
 
 // update
 app.patch('/update', (request, response) => {
-    const { userId, username } = request.body;
+    const { id, name } = request.body;
     const db = dbService.getDbServiceInstance();
 
-    const result = db.updateNameById(userId, username);
+    const result = db.updateNameById(id, name);
     
     result
     .then(data => response.json({success : data}))
@@ -61,10 +35,10 @@ app.patch('/update', (request, response) => {
 
 // delete
 app.delete('/delete/:id', (request, response) => {
-    const { userId } = request.params;
+    const { id } = request.params;
     const db = dbService.getDbServiceInstance();
 
-    const result = db.deleteRowById(userId);
+    const result = db.deleteRowById(id);
     
     result
     .then(data => response.json({success : data}))
@@ -80,6 +54,18 @@ app.get('/search/:name', (request, response) => {
     
     result
     .then(data => response.json({data : data}))
+    .catch(err => console.log(err));
+})
+
+app.post('/create', (request, response)=> {
+    const{name, songAmt, pop, mGenre, oGenre, link} = request.body; 
+    const db = dbService.getDbServiceInstance(); 
+    console.log(JSON.stringify(request.body)); 
+    const result = db.createNewArtist(name, songAmt, pop, mGenre, oGenre, link); 
+    
+
+    result
+    .then(data => response.json({success : data}))
     .catch(err => console.log(err));
 })
 

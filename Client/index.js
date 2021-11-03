@@ -1,9 +1,10 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', getAllArtists);
+function getAllArtists() {
     fetch('http://localhost:5000/getAll')
     .then(response => response.json())
     .then(data => loadHTMLTable(data['data']));
     
-});
+}
 
 document.querySelector('table tbody').addEventListener('click', function(event) {
     if (event.target.className === "delete-row-btn") {
@@ -15,9 +16,9 @@ document.querySelector('table tbody').addEventListener('click', function(event) 
 });
 
 const updateBtn = document.querySelector('#update-row-btn');
-//const searchCatBtn = document.querySelector('#search-cat-btn');
 const searchBtn = document.querySelector('#search-btn'); 
-const createAcct = document.querySelector(`#create-acct-btn`); 
+//const createAcct = document.querySelector(`#create-acct-btn`); 
+const addArtistBtn = document.querySelector('#add-artist-btn'); 
 
 searchBtn.onclick = function() {
     const searchValue = document.querySelector('#search-input').value;
@@ -70,22 +71,57 @@ updateBtn.onclick = function() {
 }
 
 
-const addBtn = document.querySelector('#add-name-btn');
+//const addBtn = document.querySelector('#add-name-btn');
 
-addBtn.onclick = function () {
-    const nameInput = document.querySelector('#name-input');
-    const name = nameInput.value;
-    nameInput.value = "";
+// addBtn.onclick = function () {
+//     const nameInput = document.querySelector('#name-input');
+//     const name = nameInput.value;
+//     nameInput.value = "";
 
-    fetch('http://localhost:5000/insert', {
+//     fetch('http://localhost:5000/insert', {
+//         headers: {
+//             'Content-type': 'application/json'
+//         },
+//         method: 'POST',
+//         body: JSON.stringify({ name : name})
+//     })
+//     .then(response => response.json())
+//     .then(data => insertRowIntoTable(data['data'][0]));
+// }
+
+addArtistBtn.onclick = function(){
+    const artistInput = document.querySelector('#artist-name-input');
+    const songAmtInput = document.querySelector('#artist-songAmt-input'); 
+    const popularityInput = document.querySelector('#artist-pop-input'); 
+    const mGenreInput = document.querySelector('#artist-main-input'); 
+    const oGenreInput = document.querySelector('#artist-genres-input'); 
+    const linkInput = document.querySelector('#artist-link-input'); 
+
+    const artist = artistInput.value; 
+    const songAmt = songAmtInput.value; 
+    const pop = popularityInput.value; 
+    const mGenre = mGenreInput.value; 
+    const oGenre = oGenreInput.value; 
+    const link = linkInput.value; 
+
+    artistInput.value = "";
+    songAmtInput.value = ""; 
+    popularityInput.value = ""; 
+    mGenreInput.value = ""; 
+    oGenreInput.value = ""; 
+    linkInput.value = ""; 
+
+    fetch('http://localhost:5000/create', {
         headers: {
             'Content-type': 'application/json'
         },
         method: 'POST',
-        body: JSON.stringify({ name : name})
+        body: JSON.stringify({ name : artist, songAmt, pop, mGenre, oGenre, link})
     })
     .then(response => response.json())
-    .then(data => insertRowIntoTable(data['data'][0]));
+    .then(data => getAllArtists());
+
+
 }
 
 function insertRowIntoTable(data) {

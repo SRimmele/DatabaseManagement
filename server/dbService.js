@@ -108,7 +108,9 @@ class DbService {
                 const query = "UPDATE artist SET artistName = ? WHERE artistID = ?";
     
                 connection.query(query, [name, id] , (err, result) => {
-                    if (err) reject(new Error(err.message));
+                    if (err) reject(console.error(err));
+                    console.log(query)
+                    console.log(JSON.stringify(result)); 
                     resolve(result.affectedRows);
                 })
             });
@@ -126,6 +128,23 @@ class DbService {
                 const query = "SELECT * FROM artist WHERE artistName LIKE CONCAT('%', ?, '%');";
 
                 connection.query(query, [name], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                })
+            });
+
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }; 
+
+    async createNewArtist(name, songAmt, pop, mGenre, oGenre, link){
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "INSERT INTO `artist`(`artistName`, `songAmt`, `popularity`, `link`, `mainGenreID`, `otherGenreID`) VALUES (?, ?, ?, ?, ?, ?)";
+
+                connection.query(query, [name, songAmt, pop, link, mGenre, oGenre], (err, results) => {
                     if (err) reject(new Error(err.message));
                     resolve(results);
                 })

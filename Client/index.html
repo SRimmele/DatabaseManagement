@@ -57,6 +57,24 @@
 
 <body>
     <main>
+        <div> 
+            <label  style = "color: white;">Artist Name:</label>
+            <input type="text" id="artist-name-input">
+            <label  style = "color: white;">Song Amount: </label>
+            <input type="text" id="artist-songAmt-input">
+            <br><br>
+            <label  style = "color: white;">Popularity:</label>
+            <input type="text" id="artist-pop-input">
+            <label style = "color: white;">Main Genre: </label>
+            <input type="text" id="artist-main-input">
+            <br><br>
+            <label  style = "color: white;">Other Genre: </label>
+            <input type="text" id="artist-genres-input">
+            <label  style = "color: white;">Link: </label>
+            <input type="text" id="artist-link-input">
+            <button id="add-artist-btn">Add Artist</button>
+            <br><br><br>
+        </div>
         <div class = "form-inline px-5 py-5 dflex justify-content-md-center align-center text-center pt-5">
             <div class="input-group mb-3 input-group-lg mt-3 pt-5 px-5">
                 <!-- text search -->
@@ -95,6 +113,12 @@
                 <tbody></tbody> <!--Empty body here, uses JS File-->
             </table> 
         </div>
+
+        <section hidden id="update-row">
+            <label>Name:</label>
+            <input type="text" id="update-name-input">
+            <button id="update-row-btn">Update</button>
+        </section>
 
      </main>
      <script src = "index.js"></script>
