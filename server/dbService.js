@@ -155,7 +155,54 @@ class DbService {
             console.log(error);
         }
     }; 
-    
+
+    async createUserAccount(username, password, email, firstName, lastName, age){
+        if(await this.usernameExists(username)){
+            throw new Error("That username is already taken!"); 
+        }
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "INSERT INTO `users`(`username`, `password`, `email`, `firstName`, `lastName`, `age`) VALUES (?, ?, ?, ?, ?, ?)";
+
+                connection.query(query, [username, password, email, firstName, lastName, age], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                })
+            });
+
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }; 
+
+    async getUserByUsername(username){
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM `users` WHERE (`username` = ?);"
+                connection.query(query, [username], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                })
+            });
+
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async getUserByEmail(){
+
+    }
+
+    async usernameExists(username){
+        const result = await this.getUserByUsername(username); 
+        console.log(JSON.stringify(result)); 
+        return result.length !== 0; 
+    }
+
+
 
 }
 

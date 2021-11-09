@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const dbService = require('./dbService');
+const { response } = require('express');
 
 app.use(cors());
 app.use(express.json());
@@ -67,6 +68,20 @@ app.post('/create', (request, response)=> {
     result
     .then(data => response.json({success : data}))
     .catch(err => console.log(err));
+})
+
+app.post('/user/create', (request, response) => {
+    const {username, password, email, firstName, lastName, age} = request.body; 
+    const db = dbService.getDbServiceInstance(); 
+
+    console.log(JSON.stringify(request.body)); 
+    const result = db.createUserAccount(username, password, email, firstName, lastName, age); 
+    
+
+    result
+    .then(data => response.json({success : data}))
+    .catch(err => response.status(400).send(err.message));
+
 })
 
 app.listen(process.env.PORT, () => console.log('app is running'));

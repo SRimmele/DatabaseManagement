@@ -24,7 +24,18 @@ fetch('http://localhost:5000/user/create', {
     method: 'POST',
     body: JSON.stringify({username: usernameInput.value, password: passwordInput.value, email: emailInput.value, firstName: firstNameInput.value, lastName: lastNameInput.value , age: ageInput.value})
 })
-.then(response => response.json())
-.then(data => getAllArtists());
+.then(response => {
+    if(response.status === 200)
+        return null; 
+    return response.text(); 
+})
+.then(data => {
+    if(data !== null){
+        alert(data); 
+    }
+});
 
 }
+
+
+
