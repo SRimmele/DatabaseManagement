@@ -45,8 +45,8 @@ CREATE TABLE IF NOT EXISTS Playlist_Songs (
 CREATE TABLE IF NOT EXISTS Users (
   userID INT (3) AUTO_INCREMENT PRIMARY KEY, 
   username VARCHAR (100) NOT NULL UNIQUE CHECK CHARACTER_LENGTH(username) > 3),
-  password VARCHAR (30) NOT NULL, 
-  email VARCHAR (500) NOT NULL UNIQUE,
+  password VARCHAR (30) NOT NULL CHECK (password='%[1234567890!@#$%^&*()-_`~=+[]{}\|'";:,<.>/?]%'), 
+  email VARCHAR (500) NOT NULL UNIQUE CHECK (email="%@%"),
   firstName VARCHAR (30) NOT NULL, 
   lastName VARCHAR (30) NOT NULL, 
   age INT (3) NOT NULL

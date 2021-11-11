@@ -9,6 +9,7 @@ const { response } = require('express');
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static("../Client")); 
 app.use(express.urlencoded({ extended : false }));
 
 // read
