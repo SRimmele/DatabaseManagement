@@ -160,6 +160,9 @@ class DbService {
         if(await this.usernameExists(username)){
             throw new Error("That username is already taken!"); 
         }
+        if(await this.emailExists(email)){
+            throw new Error("That email is already in use!"); 
+        }
         try {
             const response = await new Promise((resolve, reject) => {
                 const query = "INSERT INTO `users`(`username`, `password`, `email`, `firstName`, `lastName`, `age`) VALUES (?, ?, ?, ?, ?, ?)";
@@ -192,7 +195,20 @@ class DbService {
         }
     }
 
-    async getUserByEmail(){
+    async getUserByEmail(email){
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM `users` WHERE (`email` = ?);"
+                connection.query(query, [email], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                })
+            });
+
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
 
     }
 
@@ -202,6 +218,11 @@ class DbService {
         return result.length !== 0; 
     }
 
+    async emailExists(email){
+        const result = await this.getUserByEmail(email); 
+        console.log(JSON.stringify(result)); 
+        return result.length !== 0; 
+    }
 
 
 }
