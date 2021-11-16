@@ -112,7 +112,10 @@
             <h2> Filters </h2>
             <!-- line break here? -->
             <div>
-                <input class="form-control" type="text" placeholder="Default input" aria-label="Search Here!">
+                <div class="pt-2 input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Search Here!" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="btn btn-dark" type="button" id="button-addon2">Search</button>
+                </div>
                 
                 <br>
 
@@ -142,31 +145,31 @@
             <div>
                 <h5> Popularity Range</h5>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="zeroToTen">
+                    <input class="form-check-input" type="radio" name = "popularity" id="zeroToTen">
                     <label class="form-check-label" for="zeroToTen">
                         0-10.0
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="tenToTwentyFive">
+                    <input class="form-check-input" type="radio" name = "popularity" id="tenToTwentyFive" checked>
                     <label class="form-check-label" for="tenToTwentyFive">
                         10.1-25.0
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="twentyFiveToFifty">
+                    <input class="form-check-input" type="radio" name = "popularity" id="twentyFiveToFifty">
                     <label class="form-check-label" for="twentyFiveToFifty">
                         25.1-50.0
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="fiftyToSeventyFive">
+                    <input class="form-check-input" type="radio" name = "popularity" id="fiftyToSeventyFive">
                     <label class="form-check-label" for="fiftyToSeventyFive">
                         50.1-75.0
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="seventyFiveToHundred">
+                    <input class="form-check-input" type="radio" name = "popularity" id="seventyFiveToHundred">
                     <label class="form-check-label" for="seventyFiveToHundred">
                         75.1-100.0
                     </label>
