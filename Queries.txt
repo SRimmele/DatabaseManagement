@@ -150,4 +150,11 @@ SELECT * FROM Song WHERE songID IN ( SELECT songIDFirst, songIDSecond, songIDThi
 //(note: [LIST_OF_TERMS] should be formatted as ('a', 'b', 'c', 'etc') where each term is one the user selected or input in the advanced search menu)
 //(note: [LIST_OF_TERMS] is generic and will have one instance each for artist name(s), genre(s), lyrics, and song name(s))
 //(note: each individual term should be formatted as CONCAT('%', ?, '%'))
-SELECT * FROM Song WHERE songID IN ( SELECT songID FROM Song WHERE artistLink IN ( SELECT link FROM Artist WHERE ( artistName IN [LIST_OF_TERMS] OR mainGenreID IN [LIST_OF_TERMS] OR otherGenreID IN [LIST_OF_TERMS] ) OR lyrics IN [LIST_OF_TERMS] OR songName IN [LIST_OF_TERMS] )) ORDER BY songName DESC;
+
+//by song name
+
+SELECT songName FROM Song WHERE songID IN ( SELECT songID FROM Song WHERE artistLink IN ( SELECT link FROM Artist WHERE ( artistName IN [LIST_OF_TERMS] OR mainGenreID IN [LIST_OF_TERMS] OR otherGenreID IN [LIST_OF_TERMS] ) AND popularity IN [LIST_OF_TERMS]) AND lyrics IN [LIST_OF_TERMS] AND songName = CONCAT('%', ?, '%') ) ORDER BY songName DESC;
+
+//by artist name
+
+SELECT artistName FROM Artist WHERE ( artistName IN [LIST_OF_TERMS] OR mainGenreID IN [LIST_OF_TERMS] OR otherGenreID IN [LIST_OF_TERMS] ) AND popularity IN [LIST_OF_TERMS] AND lyrics IN [LIST_OF_TERMS] AND artistName = CONCAT('%', ?, '%') ORDER BY songName DESC;
