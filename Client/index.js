@@ -17,8 +17,26 @@ document.querySelector('table tbody').addEventListener('click', function(event) 
 
 const updateBtn = document.querySelector('#update-row-btn');
 const searchBtn = document.querySelector('#search-btn'); 
-//const createAcct = document.querySelector(`#create-acct-btn`); 
 const addArtistBtn = document.querySelector('#add-artist-btn'); 
+const searchCategory = document.querySelector('#searchSelect'); 
+
+function searchByCategory(){ 
+    const searchValue = document.querySelector('#search-input').value; 
+
+    if(searchCategory.value === 1){
+        
+        fetch('http://localhost:5000/song/search' +searchValue)
+        .then(response => response.json())
+        .then(data => loadHTMLTable(data['data'])); 
+    }
+
+    if(searchCategory.value === 2){
+        
+        fetch('http://localhost:5000/artist/search' +searchValue)
+        .then(response => response.json())
+        .then(data => loadHTMLTable(data['data'])); 
+    }
+}
 
 searchBtn.onclick = function() {
     const searchValue = document.querySelector('#search-input').value;
