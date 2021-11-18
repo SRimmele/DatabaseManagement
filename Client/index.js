@@ -20,23 +20,37 @@ const searchBtn = document.querySelector('#search-btn');
 const addArtistBtn = document.querySelector('#add-artist-btn'); 
 const searchCategory = document.querySelector('#searchSelect'); 
 
-function searchByCategory(){ 
-    const searchValue = document.querySelector('#search-input').value; 
+// function searchByCategory(){ 
+//     const searchValue = document.querySelector('#search-input').value; 
 
-    if(searchCategory.value === 1){
+//     if(searchCategory.value === 1){
         
-        fetch('http://localhost:5000/song/search' +searchValue)
-        .then(response => response.json())
-        .then(data => loadHTMLTable(data['data'])); 
-    }
+//         fetch('http://localhost:5000/song/search' +searchValue)
+//         .then(response => response.json())
+//         .then(data => loadHTMLTable(data['data'])); 
+//     }
 
-    if(searchCategory.value === 2){
+//     if(searchCategory.value === 2){
         
-        fetch('http://localhost:5000/artist/search' +searchValue)
-        .then(response => response.json())
-        .then(data => loadHTMLTable(data['data'])); 
-    }
-}
+//         fetch('http://localhost:5000/artist/search' +searchValue)
+//         .then(response => response.json())
+//         .then(data => loadHTMLTable(data['data'])); 
+//     }
+
+//     if(searchCategory.value === 3){
+        
+//         fetch('http://localhost:5000/genre/search' +searchValue)
+//         .then(response => response.json())
+//         .then(data => loadHTMLTable(data['data'])); 
+//     }
+
+//     if(searchCategory.value === 4){
+        
+//         fetch('http://localhost:5000/lyric/search' +searchValue)
+//         .then(response => response.json())
+//         .then(data => loadHTMLTable(data['data'])); 
+//     }
+// }
 
 searchBtn.onclick = function() {
     const searchValue = document.querySelector('#search-input').value;
@@ -45,6 +59,8 @@ searchBtn.onclick = function() {
     .then(response => response.json())
     .then(data => loadHTMLTable(data['data']));
 }
+
+// searchBtn.onclick = searchByCategory(); 
 
 function deleteRowById(id) {
     fetch('http://localhost:5000/delete/' + id, {
