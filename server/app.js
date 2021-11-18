@@ -1,16 +1,22 @@
 const express = require('express');
 const app = express();
+const sess = {
+    secret: 'DrumsData', 
+    cookie: {httpOnly: false, secure: false}
+}
+const session = require('express-session'); 
 const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 
 const dbService = require('./dbService');
-const { response } = require('express');
+const { response, request } = require('express');
 
 app.use(cors());
 app.use(express.json());
 app.use(express.static("../Client")); 
 app.use(express.urlencoded({ extended : false }));
+app.use(session(sess)); 
 
 // read
 app.get('/getAll', (request, response) => {
@@ -84,5 +90,45 @@ app.post('/user/create', (request, response) => {
     .catch(err => response.status(400).send(err.message));
 
 })
+
+app.post('/user/login', (request, response) => {
+    const {email, password} = request.body; 
+    const db = dbService.getDbServiceInstance(); 
+
+    const result = db.getUserByEmailandPassword(email, password); 
+
+    result
+    .then(data => {
+        console.dir(data); 
+        request.session.username = data.username; 
+        console.dir(request.session)
+        response.json({success : data})
+    })
+    .catch(err => response.status(400).send(err.message));
+})
+
+app.get('/user/currentUser', (request, response) => {
+    const{username} = request.session; 
+    const db = dbService.getDbServiceInstance(); 
+    console.dir(request.session); 
+
+    if(!username)
+        return response.json(false); 
+    
+    const result = db.getUserByUsername(username);
+
+    result
+    .then(data => {
+        console.log(data); 
+        response.json(data);
+    })
+    .catch(err => response.status(400).send(err.message)); 
+})
+
+app.get('/user/logout', (request, response) => {
+    request.session.destroy(); 
+    response.send(); 
+})
+
 
 app.listen(process.env.PORT, () => console.log('app is running'));

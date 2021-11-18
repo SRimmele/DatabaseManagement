@@ -224,6 +224,21 @@ class DbService {
         return result.length !== 0; 
     }
 
+    async getUserByEmailandPassword(email, password){
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM `users` WHERE `email` = ? AND password = ?;"
+                connection.query(query, [email, password], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                })
+            });
+            console.log(JSON.stringify(response)); 
+            if(response.length === 0)
+                throw new Error('User not found.'); 
+            else 
+                return response[0]; 
+    }
+
 
 }
 
