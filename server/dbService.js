@@ -139,6 +139,57 @@ class DbService {
         }
     }; 
 
+    async searchByGenre(mGenre, oGenre) {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM artist WHERE mainGenreID LIKE CONCAT('%', ?, '%') OR otherGenreID LIKE CONCAT('%', ?, '%') ORDER BY popularity DESC;";
+
+                connection.query(query, [mGenre, oGenre], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                })
+            });
+
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }; 
+
+    async searchBySong(song) {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM song WHERE songName LIKE CONCAT('%', ?, '%') ORDER BY songName;";
+
+                connection.query(query, [song], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                })
+            });
+
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }; 
+
+    async searchByLyrics(lyrics) {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM song WHERE lyrics LIKE CONCAT('%', ?, '%') ORDER BY songName;";
+
+                connection.query(query, [lyrics], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                })
+            });
+
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }; 
+
     async createNewArtist(name, songAmt, pop, mGenre, oGenre, link){
         try {
             const response = await new Promise((resolve, reject) => {

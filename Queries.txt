@@ -124,7 +124,7 @@ SELECT * FROM Song WHERE songName LIKE CONCAT('%', ?, '%') ORDER BY songName DES
 SELECT * FROM Song WHERE lyrics LIKE CONCAT('%', ?, '%') ORDER BY songName DESC;
 
 //songs by genre (note: both ? values should be filled by the same user input)
-SELECT * FROM Song WHERE artistLink IN ( SELECT link FROM Artist WHERE mainGenreID LIKE CONCAT('%', ?, '%') OR otherGenreID LIKE CONCAT('%', ?, '%') ) ORDER BY songName DESC;
+SELECT artistName FROM artist WHERE mainGenreID LIKE CONCAT('%', 'Rock', '%') OR otherGenreID LIKE CONCAT('%', 'Pop', '%') ORDER BY artistName;
 
 //show all playlists for user
 SELECT * FROM Playlist WHERE userID IN getCookie(activeUser) ORDER BY title DESC;
