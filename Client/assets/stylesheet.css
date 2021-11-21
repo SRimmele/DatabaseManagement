@@ -22,13 +22,6 @@ body {
     background-color:darkgray;
 }
 
-
-.login-form {
-    width: 300px; 
-    margin: 0 auto;
-    font-family: Tahoma, Geneva, sans-serif;
-}
-
 .login-form input[type="password"],
 .login-form input[type="text"] {
     width: 100%;
