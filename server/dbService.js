@@ -142,7 +142,7 @@ class DbService {
     async searchByGenre(mGenre, oGenre) {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "SELECT artistName FROM artist WHERE mainGenreID LIKE CONCAT('%', ?, '%') OR otherGenreID LIKE CONCAT('%', ?, '%') ORDER BY artistName;";
+                const query = "SELECT * FROM artist WHERE mainGenreID LIKE CONCAT('%', ?, '%') OR otherGenreID LIKE CONCAT('%', ?, '%') ORDER BY popularity DESC;";
 
                 connection.query(query, [mGenre, oGenre], (err, results) => {
                     if (err) reject(new Error(err.message));

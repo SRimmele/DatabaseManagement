@@ -141,12 +141,11 @@ app.get('/artist/search', (request, response) => {
     .catch(err => console.log(err));
 })
 
-app.get('/genre/search', (request, response) => {
-    const {mGenre, oGenre} = request.params;
+app.get('/genre/search/:genre', (request, response) => {
+    const {genre} = request.params;
     const db = dbService.getDbServiceInstance();
 
-    const result = db.searchByGenre(mGenre, oGenre);
-    console.log(result); 
+    const result = db.searchByGenre(genre);
 
     result
     .then(data => response.json({data : data}))

@@ -11,8 +11,12 @@ const searchBtn = document.querySelector('#search-btn');
 
 searchFormInput.addEventListener('submit', searchByCategory); 
 
-function searchByCategory(){
+async function searchByCategory(event){
+    event.preventDefault(); 
+
     const searchValue = document.querySelector('#search-input').value; 
+    console.log(searchCategory.value); 
+
     if(searchCategory.value === '1'){
         
         const response = fetch('http://localhost:5000/song/search' +searchValue)
@@ -20,25 +24,20 @@ function searchByCategory(){
         .then(data => loadHTMLTable(data['data'])); 
     }
 
-    if(searchCategory.value === '2'){
+    else if(searchCategory.value === '2'){
         
         fetch('http://localhost:5000/artist/search' +searchValue)
         .then(response => response.json())
         .then(data => loadHTMLTable(data['data'])); 
     }
 
-    if(searchCategory.value === '3'){
-        
-        fetch('http://localhost:5000/genre/search' +searchValue
-            // method: 'GET',
-            // headers: {'content-type':"application/json"},  
-            // body: JSON.stringify({searchValue})
-        )
+    else if(searchCategory.value === '3'){ 
+        const response = await fetch('http://localhost:5000/genre/search/' + searchValue)
         .then(response => response.json())
-        .then(data => loadHTMLTable(data['data'])); 
+        .then(data => loadHTMLTable(data['data']));  
     }
 
-    if(searchCategory.value === '4'){
+    else if(searchCategory.value === '4'){
         
         fetch('http://localhost:5000/lyric/search' +searchValue)
         .then(response => response.json())
