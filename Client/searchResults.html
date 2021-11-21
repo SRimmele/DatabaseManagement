@@ -56,21 +56,23 @@
 
 <body>
     <div class = "px-5 dflex justify-content-md-center text-center">
-        <!-- WE NEED TO PASS IN WHATEVER PARAMS WHERE SEARCHED FOR AND DISPLAY BELOW IN FIELDS -->
-        <div class="input-group mb-3 input-group-lg mt-3">
-            <!-- text search -->
-            <input type="text" class="form-control form-control-lg" id = "search-input" placeholder = "Search songs, artists, genre, lyrics, and more ..." aria-label="Text input with dropdown button">
-            <!-- category search -->
-            <select class="form select" id="searchSelect">
-                <option selected> Categories </option>
-                <option value="1"> Song </option>
-                <option value="2"> Artist </option>
-                <option value="3"> Genre </option>
-                <option value="4"> Lyrics </option>
-            </select>
-            <!-- submit search button -->
-            <button class="btn btn-secondary" type="submit" id="search-btn"> Search </button>
-        </div>
+        <form id = "basic-search-form">
+            <!-- WE NEED TO PASS IN WHATEVER PARAMS WHERE SEARCHED FOR AND DISPLAY BELOW IN FIELDS -->
+            <div class="input-group mb-3 input-group-lg mt-3">
+                <!-- text search -->
+                <input type="text" class="form-control form-control-lg" id = "search-input" placeholder = "Search songs, artists, genre, lyrics, and more ..." aria-label="Text input with dropdown button">
+                <!-- category search -->
+                <select class="form select" id="searchSelect">
+                    <option selected> Categories </option>
+                    <option value="1"> Song </option>
+                    <option value="2"> Artist </option>
+                    <option value="3"> Genre </option>
+                    <option value="4"> Lyrics </option>
+                </select>
+                <!-- submit search button -->
+                <button class="btn btn-secondary" type="submit" id="search-btn"> Search </button>
+            </div>
+        </form>
 
         <!-- link to adv.search page -->
         <a href = "advancedSearch.html"> Advanced Search </a>
