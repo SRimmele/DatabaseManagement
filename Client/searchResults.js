@@ -18,15 +18,14 @@ async function searchByCategory(event){
     console.log(searchCategory.value); 
 
     if(searchCategory.value === '1'){
-        
-        const response = fetch('http://localhost:5000/song/search' +searchValue)
+        console.log("You're searching for Songs!")
+        const response = await fetch('http://localhost:5000/song/search/' +searchValue)
         .then(response => response.json())
-        .then(data => loadHTMLTable(data['data'])); 
+        .then(data => loadSongHTMLTable(data['data'])); 
     }
 
     else if(searchCategory.value === '2'){
-        
-        fetch('http://localhost:5000/artist/search' +searchValue)
+        const response = await fetch('http://localhost:5000/artist/search/' +searchValue)
         .then(response => response.json())
         .then(data => loadHTMLTable(data['data'])); 
     }
@@ -39,9 +38,9 @@ async function searchByCategory(event){
 
     else if(searchCategory.value === '4'){
         
-        fetch('http://localhost:5000/lyric/search' +searchValue)
+        const response = await fetch('http://localhost:5000/lyric/search/' +searchValue)
         .then(response => response.json())
-        .then(data => loadHTMLTable(data['data'])); 
+        .then(data => loadSongHTMLTable(data['data'])); 
     }
 
     else{
@@ -69,6 +68,25 @@ function loadHTMLTable(data) {
         tableHtml += `<td>${otherGenreID}</td>`; 
         tableHtml += `<td><button class="delete-row-btn" data-id=${artistID}>Delete</td>`;
         tableHtml += `<td><button class="edit-row-btn" data-id=${artistID}>Edit</td>`;
+        tableHtml += "</tr>";
+    });
+
+    table.innerHTML = tableHtml;
+}
+
+function loadSongHTMLTable(data) {
+    const table = document.querySelector('table tbody');
+
+    if (data.length === 0) {
+        table.innerHTML = "<tr><td class='no-data' colspan='8'>No Data</td></tr>";
+        return;
+    }
+
+    let tableHtml = "";
+
+    data.forEach(function ({artistID, artistName, songAmt, popularity, link, mainGenreID, otherGenreID}) {
+        tableHtml += "<tr>";
+        tableHtml += `<td>${link}</td>`; 
         tableHtml += "</tr>";
     });
 

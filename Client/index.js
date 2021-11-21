@@ -18,63 +18,56 @@ document.querySelector('table tbody').addEventListener('click', function(event) 
 const updateBtn = document.querySelector('#update-row-btn');
 const searchBtn = document.querySelector('#search-btn'); 
 const addArtistBtn = document.querySelector('#add-artist-btn'); 
-//const searchCategory = document.querySelector('#searchSelect'); 
-//const searchFormInput = document.querySelector('#basic-search-form'); 
+const searchCategory = document.querySelector('#searchSelect');  
+const searchFormInput = document.querySelector('#basic-search-form'); 
 
 // searchFormInput.addEventListener('submit', searchByCategory); 
-// searchBtn.onclick = searchByCategory(); 
 
-// async function searchByCategory(event){
-//     event.preventDefault(); 
+// function searchByCategory(event){
+
 //     const searchValue = document.querySelector('#search-input').value; 
+//     //console.log(searchCategory.value); 
 
 //     if(searchCategory.value === '1'){
-        
-//         const response = fetch('http://localhost:5000/song/search' +searchValue)
+//         //console.log("You're searching for Songs!")
+//         fetch('http://localhost:5000/song/search/' +searchValue)
+//         .then(response => response.json())
+//         .then(data => loadSongHTMLTable(data['data'])); 
+//     }
+
+//     else if(searchCategory.value === '2'){
+//         fetch('http://localhost:5000/artist/search/' +searchValue)
 //         .then(response => response.json())
 //         .then(data => loadHTMLTable(data['data'])); 
 //     }
 
-//     if(searchCategory.value === '2'){
-        
-//         fetch('http://localhost:5000/artist/search' +searchValue)
+//     else if(searchCategory.value === '3'){ 
+//         fetch('http://localhost:5000/genre/search/' + searchValue)
 //         .then(response => response.json())
-//         .then(data => loadHTMLTable(data['data'])); 
+//         .then(data => loadHTMLTable(data['data']));  
 //     }
 
-//     if(searchCategory.value === '3'){
+//     else if(searchCategory.value === '4'){
         
-//         fetch('http://localhost:5000/genre/search' +searchValue, {
-//             method: 'GET',
-//             headers: {'content-type':"application/json"},  
-//             body: JSON.stringify({searchValue})
-//         })
+//         fetch('http://localhost:5000/lyric/search/' +searchValue)
 //         .then(response => response.json())
-//         .then(data => loadHTMLTable(data['data'])); 
+//         .then(data => loadSongHTMLTable(data['data'])); 
 //     }
 
-//     if(searchCategory.value === '4'){
-        
-//         fetch('http://localhost:5000/lyric/search' +searchValue)
-//         .then(response => response.json())
-//         .then(data => loadHTMLTable(data['data'])); 
-//     }
 //     else{
 //         alert("Please choose a category!"); 
 //     }
+// } 
 
-//     window.location = "searchResults.html"; 
-// }  
+// searchBtn.onclick = function() {
+//     const searchValue = document.querySelector('#search-input').value;
 
-searchBtn.onclick = function() {
-    const searchValue = document.querySelector('#search-input').value;
+//     fetch('http://localhost:5000/search/' + searchValue)
+//     .then(response => response.json())
+//     .then(data => loadHTMLTable(data['data']));
+// }
 
-    fetch('http://localhost:5000/search/' + searchValue)
-    .then(response => response.json())
-    .then(data => loadHTMLTable(data['data']));
-}
-
-
+searchBtn.onclick = searchByCategory(); 
 
 function deleteRowById(id) {
     fetch('http://localhost:5000/delete/' + id, {
@@ -217,6 +210,7 @@ function loadHTMLTable(data) {
 
     table.innerHTML = tableHtml;
 }
+
 
 //setCookie function
 //for login, call as setCookie(activeUser, [userID])

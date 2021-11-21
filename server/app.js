@@ -53,7 +53,7 @@ app.delete('/delete/:id', (request, response) => {
     .catch(err => console.log(err));
 });
 
-app.get('/search/:name', (request, response) => {
+app.get('/artist/search/:name', (request, response) => {
     const { name } = request.params;
     const db = dbService.getDbServiceInstance();
 
@@ -129,23 +129,33 @@ app.get('/user/logout', (request, response) => {
     response.send(); 
 })
 
-
-app.get('/artist/search', (request, response) => {
-    const { name } = request.params;
-    const db = dbService.getDbServiceInstance();
-
-    const result = db.searchByName(name);
-    
-    result
-    .then(data => response.json({data : data}))
-    .catch(err => console.log(err));
-})
-
 app.get('/genre/search/:genre', (request, response) => {
     const {genre} = request.params;
     const db = dbService.getDbServiceInstance();
 
     const result = db.searchByGenre(genre);
+
+    result
+    .then(data => response.json({data : data}))
+    .catch(err => console.log(err));
+})
+
+app.get('/song/search/:song', (request, response) => {
+    const {song} = request.params;
+    const db = dbService.getDbServiceInstance();
+
+    const result = db.searchBySong(song);
+
+    result
+    .then(data => response.json({data : data}))
+    .catch(err => console.log(err));
+})
+
+app.get('/lyric/search/:lyrics', (request, response) => {
+    const {lyrics} = request.params;
+    const db = dbService.getDbServiceInstance();
+
+    const result = db.searchByLyrics(lyrics);
 
     result
     .then(data => response.json({data : data}))
