@@ -139,6 +139,23 @@ class DbService {
         }
     }; 
 
+    async searchByGenre(mGenre, oGenre) {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT artistName FROM artist WHERE mainGenreID LIKE CONCAT('%', ?, '%') OR otherGenreID LIKE CONCAT('%', ?, '%') ORDER BY artistName;";
+
+                connection.query(query, [mGenre, oGenre], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                })
+            });
+
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }; 
+
     async createNewArtist(name, songAmt, pop, mGenre, oGenre, link){
         try {
             const response = await new Promise((resolve, reject) => {

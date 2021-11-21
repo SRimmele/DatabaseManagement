@@ -53,7 +53,6 @@ app.delete('/delete/:id', (request, response) => {
     .catch(err => console.log(err));
 });
 
-//app.get('getAll', (request, reponse) => {
 app.get('/search/:name', (request, response) => {
     const { name } = request.params;
     const db = dbService.getDbServiceInstance();
@@ -130,5 +129,28 @@ app.get('/user/logout', (request, response) => {
     response.send(); 
 })
 
+
+app.get('/artist/search', (request, response) => {
+    const { name } = request.params;
+    const db = dbService.getDbServiceInstance();
+
+    const result = db.searchByName(name);
+    
+    result
+    .then(data => response.json({data : data}))
+    .catch(err => console.log(err));
+})
+
+app.get('/genre/search', (request, response) => {
+    const {mGenre, oGenre} = request.params;
+    const db = dbService.getDbServiceInstance();
+
+    const result = db.searchByGenre(mGenre, oGenre);
+    console.log(result); 
+
+    result
+    .then(data => response.json({data : data}))
+    .catch(err => console.log(err));
+})
 
 app.listen(process.env.PORT, () => console.log('app is running'));
