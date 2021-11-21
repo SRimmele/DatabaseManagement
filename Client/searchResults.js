@@ -9,9 +9,10 @@ const searchCategory = document.querySelector('#searchSelect');
 const searchFormInput = document.querySelector('#basic-search-form'); 
 const searchBtn = document.querySelector('#search-btn'); 
 
-searchBtn.onclick = function searchByCategory(){
-    const searchValue = document.querySelector('#search-input').value; 
+searchFormInput.addEventListener('submit', searchByCategory); 
 
+function searchByCategory(){
+    const searchValue = document.querySelector('#search-input').value; 
     if(searchCategory.value === '1'){
         
         const response = fetch('http://localhost:5000/song/search' +searchValue)
@@ -28,11 +29,11 @@ searchBtn.onclick = function searchByCategory(){
 
     if(searchCategory.value === '3'){
         
-        fetch('http://localhost:5000/genre/search' +searchValue, {
-            method: 'GET',
-            headers: {'content-type':"application/json"},  
-            body: JSON.stringify({searchValue})
-        })
+        fetch('http://localhost:5000/genre/search' +searchValue
+            // method: 'GET',
+            // headers: {'content-type':"application/json"},  
+            // body: JSON.stringify({searchValue})
+        )
         .then(response => response.json())
         .then(data => loadHTMLTable(data['data'])); 
     }
