@@ -102,26 +102,36 @@ FROM song, playlist_songs
 WHERE playlist_songs.songID = song.songID AND playlistID = ?;
 
 //show all of user's friends
-SELECT * 
-FROM User 
-WHERE userID 
-ORDER BY connectedToID;
-
-//show selected friend for user
-//(Note: [SELECTION] should be initialized with userID by whatever link/button/etc the user uses to select a friend from the list)
-SELECT userID, username, firstName, lastName, age 
-FROM User 
-WHERE userID = [SELECTION];
-
-//show recently listened to
-SELECT * 
-FROM Song 
-WHERE songID IN ( SELECT songIDFirst, songIDSecond, songIDThird, songIDFourth, songIDFifth FROM Recent_Songs WHERE userID IN getCookie(activeUser));
+SELECT username
+FROM friends, users
+WHERE connectedToID = users.userID AND friends.userID = ?;
 
 //show recently listened to by friend
-SELECT * 
-FROM Song 
-WHERE songID IN ( SELECT songIDFirst, songIDSecond, songIDThird, songIDFourth, songIDFifth FROM Recent_Songs WHERE userID IN ( SELECT userID FROM User WHERE username = ?));
+SELECT username, songName
+FROM friends, users, recent_songs, song
+WHERE connectedToID = users.userID AND friends.userID = 8
+	AND song.songID = recent_songs.songIDFirst;
+// second song ...
+SELECT songName
+FROM friends, users, recent_songs, song
+WHERE connectedToID = users.userID AND friends.userID = 8
+	AND song.songID = recent_songs.songIDSecond;
+// second third ...
+SELECT songName
+FROM friends, users, recent_songs, song
+WHERE connectedToID = users.userID AND friends.userID = 8
+	AND song.songID = recent_songs.songIDThird;
+// second fourth ...
+SELECT songName
+FROM friends, users, recent_songs, song
+WHERE connectedToID = users.userID AND friends.userID = 8
+	AND song.songID = recent_songs.songIDFourth;
+// second fifth ...
+SELECT songName
+FROM friends, users, recent_songs, song
+WHERE connectedToID = users.userID AND friends.userID = 8
+	AND song.songID = recent_songs.songIDFifth;
+
 
 //Advanced search (subject to major change) 
 //(note: [LIST_OF_TERMS] should be formatted as ('a', 'b', 'c', 'etc') where each term is one the user selected or input in the advanced search menu)
