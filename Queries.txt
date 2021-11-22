@@ -133,15 +133,32 @@ WHERE connectedToID = users.userID AND friends.userID = 8
 	AND song.songID = recent_songs.songIDFifth;
 
 
-//Advanced search (subject to major change) 
-//(note: [LIST_OF_TERMS] should be formatted as ('a', 'b', 'c', 'etc') where each term is one the user selected or input in the advanced search menu)
-//(note: [LIST_OF_TERMS] is generic and will have one instance each for artist name(s), genre(s), lyrics, and song name(s))
-//(note: each individual term should be formatted as CONCAT('%', ?, '%'))
+//Advanced search
 
-//by song name
+//by song name / lyric
+// CATEGORY == SONG OR CATEGORY == LYRIC
 
-SELECT songName FROM Song WHERE songID IN ( SELECT songID FROM Song WHERE artistLink IN ( SELECT link FROM Artist WHERE ( artistName IN [LIST_OF_TERMS] OR mainGenreID IN [LIST_OF_TERMS] OR otherGenreID IN [LIST_OF_TERMS] ) AND popularity IN [LIST_OF_TERMS]) AND lyrics IN [LIST_OF_TERMS] AND songName = CONCAT('%', ?, '%') ) ORDER BY songName DESC;
+SSELECT songName 
+FROM song, artist 
+WHERE song.artistLink = artist.link 
+	AND (artist.mainGenreID = 'Pop' OR artist.otherGenreID ='Pop')
+    AND artist.popularity > 0 
+    AND artist.popularity < 100
+    AND artist.artistName = 'Eminem'
+	AND song.lyrics = ''
+    AND songName LIKE CONCAT('%', '', '%')
+ORDER BY songName ASC LIMIT 1000;
 
 //by artist name
+// CATEGORY == ARTIST
 
-SELECT artistName FROM Artist WHERE ( artistName IN [LIST_OF_TERMS] OR mainGenreID IN [LIST_OF_TERMS] OR otherGenreID IN [LIST_OF_TERMS] ) AND popularity IN [LIST_OF_TERMS] AND lyrics IN [LIST_OF_TERMS] AND artistName = CONCAT('%', ?, '%') ORDER BY songName DESC;
+SELECT artistName 
+FROM song, artist 
+WHERE song.artistLink = artist.link 
+	AND (artist.mainGenreID = ? OR artist.otherGenreID = ?)
+    AND artist.popularity > ? 
+    AND artist.popularity < ?
+    AND artist.artistName = ?
+	AND song.lyrics = ?
+    AND artistName LIKE CONCAT('%', '', '%')
+ORDER BY songName ASC LIMIT 1000;
