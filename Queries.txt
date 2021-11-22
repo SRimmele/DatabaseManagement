@@ -1,13 +1,6 @@
 USE app;
 
-CREATE TABLE IF NOT EXISTS Playlist (
-  playlistID INT (4) PRIMARY KEY, 
-  title VARCHAR (255) NOT NULL,
-  userID INT (3) NOT NULL,
-  FOREIGN KEY (userID) REFERENCES User(userID)
-); 
-
-CREATE TABLE IF NOT EXISTS Artist (
+CREATE TABLE IF NOT EXISTS artist (
 	artistID INT(4) UNSIGNED AUTO_INCREMENT,
 	artistName VARCHAR(100) NOT NULL,
 	songAmt INT (3) NOT NULL,
@@ -18,12 +11,7 @@ CREATE TABLE IF NOT EXISTS Artist (
   PRIMARY KEY (artistID, link)
 ); 
 
-CREATE TABLE IF NOT EXISTS Language (
-  languageID INT (3) AUTO_INCREMENT PRIMARY KEY, 
-  languageName VARCHAR (20) NOT NULL UNIQUE
-); 
-
-CREATE TABLE IF NOT EXISTS Song (
+CREATE TABLE IF NOT EXISTS song (
   songID INT (7) PRIMARY KEY, 
   songName VARCHAR (255) NOT NULL, 
   link VARCHAR (255) NOT NULL, 
@@ -31,18 +19,7 @@ CREATE TABLE IF NOT EXISTS Song (
   artistLink VARCHAR (255) NOT NULL,
 ); 
 
-
-CREATE TABLE IF NOT EXISTS Playlist_Songs (
-  position INT (4) NOT NULL, 
-  playlistID INT (4) NOT NULL,
-  songID INT (5) NOT NULL,
-  FOREIGN KEY (playlistID) REFERENCES Playlist (playlistID), 
-  FOREIGN KEY (songID) REFERENCES Song (songID), 
-  PRIMARY KEY (position, playlistID, songID)
-); 
-
-
-CREATE TABLE IF NOT EXISTS Users (
+CREATE TABLE IF NOT EXISTS users (
   userID INT (3) AUTO_INCREMENT PRIMARY KEY, 
   username VARCHAR (100) NOT NULL UNIQUE CHECK CHARACTER_LENGTH(username) > 3),
   password VARCHAR (30) NOT NULL CHECK (password='%[1234567890!@#$%^&*()-_`~=+[]{}\|'";:,<.>/?]%'), 
@@ -51,59 +28,45 @@ CREATE TABLE IF NOT EXISTS Users (
   lastName VARCHAR (30) NOT NULL, 
   age INT (3) NOT NULL
 ); 
-	
-CREATE TABLE IF NOT EXISTS Friends (
-	userID INT(3) NOT NULL, 
-	connectedToID INT(3) NOT NULL, 
-  FOREIGN KEY (userID) REFERENCES User(userID), 
-  FOREIGN KEY (connectedToID) REFERENCES User(userID), 
-  PRIMARY KEY(userID, connectedToID)
+
+CREATE TABLE IF NOT EXISTS playlist (
+  playlistID INT (4) AUTO_INCREMENT PRIMARY KEY, 
+  title VARCHAR (255) NOT NULL,
+  userID INT (3) NOT NULL,
+  FOREIGN KEY (userID) REFERENCES users(userID)
 ); 
 
-CREATE TABLE IF NOT EXISTS Recent_Songs (
+CREATE TABLE IF NOT EXISTS playlist_songs (
+  songPosition INT (4) NOT NULL, 
+  playlistID INT (4) NOT NULL,
+  songID INT (5) NOT NULL,
+  FOREIGN KEY (playlistID) REFERENCES playlist (playlistID), 
+  FOREIGN KEY (songID) REFERENCES song (songID), 
+  PRIMARY KEY (songID, playlistID)
+); 
+
+CREATE TABLE IF NOT EXISTS friends (
+	userID INT(3) NOT NULL, 
+	connectedToID INT(3) NOT NULL, 
+	FOREIGN KEY (userID) REFERENCES users(userID), 
+	FOREIGN KEY (connectedToID) REFERENCES users(userID), 	
+    PRIMARY KEY(userID, connectedToID)
+);
+
+CREATE TABLE IF NOT EXISTS recent_songs (
   userID INT (3) NOT NULL PRIMARY KEY,
   songIDFirst INT (5),
   songIDSecond INT (5),
   songIDThird INT (5),
   songIDFourth INT (5),
   songIDFifth INT (5),
-  FOREIGN KEY (userID) REFERENCES User(userID),
-  FOREIGN KEY (songIDFirst) REFERENCES Song(songID),
-  FOREIGN KEY (songIDSecond) REFERENCES Song(songID),
-  FOREIGN KEY (songIDThird) REFERENCES Song(songID),
-  FOREIGN KEY (songIDFourth) REFERENCES Song(songID),
-  FOREIGN KEY (songIDFifth) REFERENCES Song(songID)
+  FOREIGN KEY (userID) REFERENCES users(userID),
+  FOREIGN KEY (songIDFirst) REFERENCES song(songID),
+  FOREIGN KEY (songIDSecond) REFERENCES song(songID),
+  FOREIGN KEY (songIDThird) REFERENCES song(songID),
+  FOREIGN KEY (songIDFourth) REFERENCES song(songID),
+  FOREIGN KEY (songIDFifth) REFERENCES song(songID)
 );
-
-//cookie functions
-//call with setCookie(activeUser, [userID])
-
-function setCookie(cname, cvalue)
-{
-	document.cookie = cname + "=" + cvalue;
-}
-
-//getCookie(activeUser) returns userID as string
-
-function getCookie(cname)
-{
-	let name = cname + "=";
-	let decodedCookie = decodeURIComponent(document.cookie);
-	let ca = decodedCookie.split(';');
-	for(let i = 0; i < ca.length; i++)
-	{
-		let c = ca[i];
-		while (c.charAt(0) == ' ')
-		{
-			c = c.substring(1);
-		}
-		if (c.indexOf(name) == 0)
-		{
-			return c.substring(name.length, c.length);
-		}
-	}
-	return "";
-}
 
 //add a user
 INSERT INTO User (username, password, email, firstName, lastName, age) VALUES (?, ?, ?, ?, ?, ?);
@@ -126,25 +89,39 @@ SELECT * FROM Song WHERE lyrics LIKE CONCAT('%', ?, '%') ORDER BY songName DESC;
 //songs by genre (note: both ? values should be filled by the same user input)
 SELECT artistName FROM artist WHERE mainGenreID LIKE CONCAT('%', 'Rock', '%') OR otherGenreID LIKE CONCAT('%', 'Pop', '%') ORDER BY artistName;
 
-//show all playlists for user
-SELECT * FROM Playlist WHERE userID IN getCookie(activeUser) ORDER BY title DESC;
 
-//selected playlist for user
-//(Note: [SELECTION] should be initialized with playlistID by whatever link/button/etc the user uses to select a playlist from the list)
-SELCT * FROM Playlist_Songs WHERE playlistID = [SELECTION] ORDER BY position ASC;
+//show all playlists for user FOR PLAYLIST TABLE
+SELECT title 
+FROM playlist 
+WHERE userID = ?
+ORDER BY title ASC;
+
+//shows songs and their id from users selected playlist
+SELECT songName, playlist_songs.songID
+FROM song, playlist_songs
+WHERE playlist_songs.songID = song.songID AND playlistID = ?;
 
 //show all of user's friends
-SELECT * FROM User WHERE userID IN ( SELECT connectedToID FROM friends WHERE userID IN getCookie(activeUser)) ORDER BY connectedToID;
+SELECT * 
+FROM User 
+WHERE userID 
+ORDER BY connectedToID;
 
 //show selected friend for user
 //(Note: [SELECTION] should be initialized with userID by whatever link/button/etc the user uses to select a friend from the list)
-SELECT userID, username, firstName, lastName, age FROM User WHERE userID = [SELECTION];
+SELECT userID, username, firstName, lastName, age 
+FROM User 
+WHERE userID = [SELECTION];
 
 //show recently listened to
-SELECT * FROM Song WHERE songID IN ( SELECT songIDFirst, songIDSecond, songIDThird, songIDFourth, songIDFifth FROM Recent_Songs WHERE userID IN getCookie(activeUser));
+SELECT * 
+FROM Song 
+WHERE songID IN ( SELECT songIDFirst, songIDSecond, songIDThird, songIDFourth, songIDFifth FROM Recent_Songs WHERE userID IN getCookie(activeUser));
 
 //show recently listened to by friend
-SELECT * FROM Song WHERE songID IN ( SELECT songIDFirst, songIDSecond, songIDThird, songIDFourth, songIDFifth FROM Recent_Songs WHERE userID IN ( SELECT userID FROM User WHERE username = ?));
+SELECT * 
+FROM Song 
+WHERE songID IN ( SELECT songIDFirst, songIDSecond, songIDThird, songIDFourth, songIDFifth FROM Recent_Songs WHERE userID IN ( SELECT userID FROM User WHERE username = ?));
 
 //Advanced search (subject to major change) 
 //(note: [LIST_OF_TERMS] should be formatted as ('a', 'b', 'c', 'etc') where each term is one the user selected or input in the advanced search menu)
