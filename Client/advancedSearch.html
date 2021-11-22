@@ -117,9 +117,9 @@
                     <input type="text" class="form-control" placeholder="Your search begin here..." aria-label="Recipient's username" aria-describedby="button-addon2">
                     <button class="btn btn-dark" type="button" id="button-addon2">Search</button>
                 </div>
-
-                <hr class ="rounded">
-
+            </form>
+            <hr class ="rounded">
+            <form id = "categories-form">
                 <div>
                     <h5> Categories </h5>
                     <div class="form-check">
@@ -141,9 +141,9 @@
                         </label>
                     </div>
                 </div>
-
-                <hr class ="rounded">
-
+            </form>
+            <hr class ="rounded">
+            <form id = "popularity-form">
                 <div>
                     <h5> Popularity Range</h5>
                     <div class="form-check">
@@ -153,7 +153,7 @@
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name = "popularity" id="tenToTwentyFive" checked>
+                        <input class="form-check-input" type="radio" name = "popularity" id="tenToTwentyFive">
                         <label class="form-check-label" for="tenToTwentyFive">
                             10.1-25.0
                         </label>
@@ -171,18 +171,17 @@
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name = "popularity" id="seventyFiveToHundred">
+                        <input class="form-check-input" type="radio" name = "popularity" id="seventyFiveandUp" checked>
                         <label class="form-check-label" for="seventyFiveToHundred">
-                            75.1-100.0
+                            75.1+
                         </label>
                     </div>
                 </div>
-
-                <hr class ="rounded">
-
+            </form>
+            <hr class ="rounded">
+            <form id = "top-artists-form">
                 <div>
                     <h5> Top 5 Artists </h5>
-                    <!-- REFERENCE: https://wordcounter.net/blog/2017/01/09/102797_most-popular-words-songs.html -->
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="maroon5">
                         <label class="form-check-label" for="maroon5">
@@ -214,9 +213,9 @@
                         </label>
                     </div>
                 </div>
-
-                <hr class ="rounded">
-
+            </form>
+            <hr class ="rounded">
+            <form id = "lyrics-form">
                 <div>
                     <h5> Lyric Keywords </h5>
                     <!-- REFERENCE: https://wordcounter.net/blog/2017/01/09/102797_most-popular-words-songs.html -->
@@ -257,9 +256,9 @@
                         </label>
                     </div>
                 </div>
-
-                <hr class ="rounded">
-
+            </form>
+            <hr class ="rounded">
+            <form id = "genre-form">
                 <div>
                     <h5> Genres </h5>
                     <div class="form-check">
@@ -370,14 +369,6 @@
                             Rock
                         </label>
                     </div>
-                </div>
-                
-                <br>
-
-                <div class="d-grid gap-2 col-6 mx-auto">
-                    <button class="btn btn-dark" type="button" id ="adv-search-btn">
-                        Search
-                    </button>
                 </div>
             </form>
         </div>
