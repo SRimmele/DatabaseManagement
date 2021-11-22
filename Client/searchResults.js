@@ -84,9 +84,11 @@ function loadSongHTMLTable(data) {
 
     let tableHtml = "";
 
-    data.forEach(function ({artistID, artistName, songAmt, popularity, link, mainGenreID, otherGenreID}) {
+    data.forEach(function ({songName, link, lyrics}) {
         tableHtml += "<tr>";
+        tableHtml += `<td>${songName}</td>`; 
         tableHtml += `<td>${link}</td>`; 
+        tableHtml += `<td>${lyrics}</td>`; 
         tableHtml += "</tr>";
     });
 
