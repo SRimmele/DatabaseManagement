@@ -1,5 +1,16 @@
-function loadFriends(data) {
+document.addEventListener('DOMContentLoaded', getUserFriends());
+function getUserFriends() {
+    fetch('http://localhost:5000/user/friends')
+    .then(response => response.json())
+    .then(data => loadHTMLTable(data['data']));
+}
+
+async function loadFriends(data) {
     const card = document.querySelector('card');
+
+    // const response =  await fetch('http://localhost:5000/user/friend')
+    // .then(response => response.json())
+    // .then(data => getUserFriends()); 
 
     let friendCardHtml = "";
 
