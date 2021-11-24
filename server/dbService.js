@@ -290,17 +290,15 @@ class DbService {
                 return response[0]; 
     }
 
-    // async getUserFriends(){
+    // async getUserFriends(firstName, lastName, username){
     //     const response = await new Promise((resolve, reject) => {
-
     //         const query = "SELECT username FROM friends, users WHERE connectedToID = users.userID AND friends.userID = ?;"; 
-    //         connection.query(query, [firstName, lastName], (err, results) => {
+    //         connection.query(query, [firstName, lastName, username], (err, results) => {
     //             if (err) reject(new Error(err.message)); 
     //             resolve(results); 
     //         })
-    //         console.log(JSON.stringify(response)); 
     //         if(response.length == 0)
-    //             throw new Error('Oh, no! You don''t have any friends.'); 
+    //             throw new Error("Oh, no! You dont't have any friends!"); 
     //         else
     //             return response[0];  
     //     })

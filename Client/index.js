@@ -211,32 +211,3 @@ function loadHTMLTable(data) {
     table.innerHTML = tableHtml;
 }
 
-//setCookie function
-//for login, call as setCookie(activeUser, [userID])
-function setCookie(cname, cvalue)
-{
-	document.cookie = cname + "=" + cvalue;
-}
-
-//getCookie(activeUser) function returns userID as string
-//if the cookie has not been set, returns empty string
-//to retrieve userID call getCookie(activeUser)
-function getCookie(cname)
-{
-	let name = cname + "=";
-	let decodedCookie = decodeURIComponent(document.cookie);
-	let ca = decodedCookie.split(';');
-	for(let i = 0; i < ca.length; i++)
-	{
-		let c = ca[i];
-		while (c.charAt(0) == ' ')
-		{
-			c = c.substring(1);
-		}
-		if (c.indexOf(name) == 0)
-		{
-			return c.substring(name.length, c.length);
-		}
-	}
-	return "";
-}
