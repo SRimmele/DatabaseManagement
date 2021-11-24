@@ -81,7 +81,7 @@ function loadArtistHTMLTable(data) {
 }
 
 function loadSongHTMLTable(data) {
-    const table = document.querySelector('table tbody');
+    const table = document.querySelector('table');
 
     if (data.length === 0) {
         table.innerHTML = "<tr><td class='no-data' colspan='8'>No Data</td></tr>";
