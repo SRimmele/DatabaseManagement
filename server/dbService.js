@@ -290,6 +290,21 @@ class DbService {
                 return response[0]; 
     }
 
+    // async getUserFriends(){
+    //     const resonse = await new Promise((resolve, reject) => {
+    //         const query = "SELECT username FROM friends, users WHERE connectedToID = users.userID AND friends.userID = ?;"; 
+    //         connection.query(query, [firstName, lastName], (err, results) => {
+    //             if (err) reject(new Error(err.message)); 
+    //             resolve(results); 
+    //         })
+    //         console.log(JSON.stringify(response)); 
+    //         if(response.length == 0)
+    //             throw new Error('Oh, no! You don''t have any friends.'); 
+    //         else
+    //             return response[0];  
+    //     })
+    // }
+
 }
 
 module.exports = DbService;
