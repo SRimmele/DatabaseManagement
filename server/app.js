@@ -162,4 +162,15 @@ app.get('/lyric/search/:lyrics', (request, response) => {
     .catch(err => console.log(err));
 })
 
+// app.get('/user/friends', (request, response) => {
+//     const {firstName, lastName} = request.params; 
+//     const db = dbService.getDbServiceInstance(); 
+    
+//     const result = db.getUserFriends(); 
+
+//     result 
+//     .then(data => response.json({data : data}))
+//     .catch(err => console.log(err)): 
+// })
+
 app.listen(process.env.PORT, () => console.log('app is running'));
