@@ -291,7 +291,8 @@ class DbService {
     }
 
     // async getUserFriends(){
-    //     const resonse = await new Promise((resolve, reject) => {
+    //     const response = await new Promise((resolve, reject) => {
+
     //         const query = "SELECT username FROM friends, users WHERE connectedToID = users.userID AND friends.userID = ?;"; 
     //         connection.query(query, [firstName, lastName], (err, results) => {
     //             if (err) reject(new Error(err.message)); 
@@ -305,7 +306,21 @@ class DbService {
     //     })
     // }
 
-    
+    // async getFriendsRecents(){
+    //     const response = await new Promise((resolve, reject) => {
+    //         const query = ""; 
+    //         connection.query(query, [songName], (err, results) => {
+    //             if(err) reject(new Error(err.message)); 
+    //             resolve(results); 
+    //         })
+
+    //         if(response.length == 0)
+    //             throw new Error('Hmm... Seems they have been pretty quiet lately.'); 
+    //         else 
+    //             return response[0]; 
+    //     })
+    // }
+
 
 }
 
