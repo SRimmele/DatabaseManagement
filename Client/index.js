@@ -211,7 +211,6 @@ function loadHTMLTable(data) {
     table.innerHTML = tableHtml;
 }
 
-
 //setCookie function
 //for login, call as setCookie(activeUser, [userID])
 function setCookie(cname, cvalue)
