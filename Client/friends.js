@@ -15,6 +15,8 @@ function loadFriends(data) {
         friendCardHtml += "</div>";
         friendCardHtml += "</div>";
 
+        friendCardHtml.innerHTML = friendCardHtml;
+
         return;
     }
 
