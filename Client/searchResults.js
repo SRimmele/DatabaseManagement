@@ -32,7 +32,7 @@ async function searchByCategory(event){
     else if(searchCategory.value === '3'){ 
         const response = await fetch('http://localhost:5000/genre/search/' + searchValue)
         .then(response => response.json())
-        .then(data => loadArtistTable(data['data']));  
+        .then(data => loadArtistHTMLTable(data['data']));  
     }
 
     else if(searchCategory.value === '4'){
