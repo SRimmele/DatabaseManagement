@@ -290,7 +290,6 @@ class DbService {
                 return response[0]; 
     }
 
-
 }
 
 module.exports = DbService;
