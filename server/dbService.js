@@ -292,6 +292,7 @@ class DbService {
 
     // async getUserFriends(){
     //     const response = await new Promise((resolve, reject) => {
+
     //         const query = "SELECT username FROM friends, users WHERE connectedToID = users.userID AND friends.userID = ?;"; 
     //         connection.query(query, [firstName, lastName], (err, results) => {
     //             if (err) reject(new Error(err.message)); 
@@ -319,6 +320,7 @@ class DbService {
     //             return response[0]; 
     //     })
     // }
+
 
 }
 
