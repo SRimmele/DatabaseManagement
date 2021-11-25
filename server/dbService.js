@@ -20,7 +20,20 @@ connection.connect((err) => {
     // console.log('db ' + connection.state);
 });
 
+const Arrayify = (value) => Array.isArray(value) ? value : [value]
+const popularityTable = {
+        zeroToTen : [0, 10], 
+        tenToTwentyFive: [10.1, 25], 
+        twentyFiveToFifty: [25.1, 50], 
+        fiftyToSeventyFive: [50.1, 75], 
+        seventyFiveandUp: [75.1, 10000]
+}; 
 
+const categoryTable = {
+    artistCategory : 'a.artistName', 
+    songCategory: 's.songName', 
+    lyricCategory: 's.lyrics'
+}; 
 class DbService {
     static getDbServiceInstance() {
         return instance ? instance : new DbService();
@@ -289,6 +302,46 @@ class DbService {
             else 
                 return response[0]; 
     }
+
+    async advancedSearch(queryParams){
+        const response = await new Promise((resolve, reject) => {
+            let query = `SELECT s.songName, s.link as songLink, a.artistName, a.link as artistLink 
+                            FROM song as s JOIN artist as a
+                            WHERE s.artistLink = a.link`;  
+            const popularity = ` AND a.popularity BETWEEN ${popularityTable[queryParams.popularity][0]} AND ${popularityTable[queryParams.popularity][1]} `
+            const artists = Arrayify(queryParams.artist).map(artist => ` a.artistName = '${artist}'`).join(` OR `) ; 
+            const genres = Arrayify(queryParams.genre).map(genre => ` a.mainGenreID LIKE '%${genre}%'`).join(` OR `) ; 
+            const otherGenres = Arrayify(queryParams.genre).map(genre => ` a.otherGenreID LIKE '%${genre}%'`).join(` OR `); 
+            const lyric = Arrayify(queryParams.lyrics).map(lyrics => ` s.lyrics LIKE '%${lyrics}%'`).join(` OR `) ; 
+            const allGenres = [];
+            const categorySearch = Arrayify(queryParams.categories).map(category => ` ${categoryTable[category]} LIKE '%${queryParams.advancedSearchText || ""}%' `).join(` OR `); 
+            if(queryParams.genre && genres.length > 0)
+                allGenres.push(genres); 
+            if(queryParams.genre && otherGenres.length > 0)
+                allGenres.push(otherGenres);  
+            query += popularity; 
+            if (queryParams.artist && artists.length > 0)
+                query += ` AND (` + `${artists})`; 
+            if(allGenres.length > 0)
+                query += ` AND (` + `${allGenres.join(` OR `)})`; 
+            if(queryParams.lyrics && lyric.length > 0)
+                query += ` AND (` + `${lyric})`;
+            if(queryParams.categories && categorySearch.length > 1 && queryParams.advancedSearchText)
+                query += ` AND (` + `${categorySearch})`; 
+            query += ` LIMIT 1000`; 
+            
+            console.log(query); 
+            
+
+            connection.query(query, [], (err, results) => {
+                if (err) reject(new Error(err.message)); 
+                resolve(results); 
+            })
+            
+        })
+        return response; 
+    }
+
 
     // async getUserFriends(firstName, lastName, username){
     //     const response = await new Promise((resolve, reject) => {

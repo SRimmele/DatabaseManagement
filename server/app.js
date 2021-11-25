@@ -162,6 +162,15 @@ app.get('/lyric/search/:lyrics', (request, response) => {
     .catch(err => console.log(err));
 })
 
+app.get('/advanced/search', (request, response) => {
+    const db = dbService.getDbServiceInstance(); 
+    const result = db.advancedSearch(request.query); 
+    console.dir(request.query); 
+    result 
+    .then(data => response.json(data))
+    .catch(err => console.log(err));
+})
+
 app.get('/user/friends', (request, response) => {
     const {firstName, lastName} = request.params; 
     const db = dbService.getDbServiceInstance(); 

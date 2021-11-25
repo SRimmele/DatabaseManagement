@@ -92,7 +92,7 @@ async function advancedSearch(event){
 }
 
 function loadArtistHTMLTable(data) {
-    const table = document.querySelector('table tbody');
+    const table = document.querySelector('#artistTable tbody');
 
     if (data.length === 0) {
         table.innerHTML = "<tr><td class='no-data' colspan='8'>No Data</td></tr>";
@@ -100,6 +100,8 @@ function loadArtistHTMLTable(data) {
     }
 
     let tableHtml = "";
+
+    data = data.filter((value, index) => data.findIndex(x => x.artistName === value.artistName) === index)
 
     data.forEach(function ({ artistName, artistLink}) {
         tableHtml += "<tr>";
@@ -109,10 +111,12 @@ function loadArtistHTMLTable(data) {
     });
 
     table.innerHTML = tableHtml;
+
+
 }
 
 function loadSongHTMLTable(data) {
-    const table = document.querySelector('table tbody');
+    const table = document.querySelector('#songTable tbody');
 
     if (data.length === 0) {
         table.innerHTML = "<tr><td class='no-data' colspan='8'>No Data</td></tr>";
