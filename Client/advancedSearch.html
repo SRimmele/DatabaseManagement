@@ -114,8 +114,8 @@
             <div>
             <form id = "advanced-search-form">
                 <div class="pt-2 input-group mb-3">
-                    <input type="search" class="form-control" placeholder="Your search begin here..." aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <button class="btn btn-dark" type="button" id="button-addon2">Search</button>
+                    <input type="search" class="form-control" placeholder="Your search begin here..." aria-label="Recipient's username" aria-describedby="button-addon2" name="advancedSearchText">
+                    <input class="btn btn-dark" type="submit" id="adv-search-btn" value="Search" />
                 </div>
             </form>
             <hr class ="rounded">
@@ -123,19 +123,19 @@
                 <div>
                     <h5> Categories </h5>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="artistCategory">
+                        <input class="form-check-input" type="checkbox" name="artistCategory" id="artistCategory">
                         <label class="form-check-label" for="artistCategory">
                             Artist
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="songCategory">
+                        <input class="form-check-input" type="checkbox" name="songCategory" id="songCategory">
                         <label class="form-check-label" for="songCategory">
                             Song
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="lyricCategory">
+                        <input class="form-check-input" type="checkbox" name="lyricCategory" id="lyricCategory">
                         <label class="form-check-label" for="lyricCategory">
                             Lyric
                         </label>
@@ -147,32 +147,32 @@
                 <div>
                     <h5> Popularity Range</h5>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name = "popularity" id="zeroToTen">
+                        <input class="form-check-input" type="radio" name = "popularity" id="zeroToTen" value="zeroToTen">
                         <label class="form-check-label" for="zeroToTen">
                             0-10.0
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name = "popularity" id="tenToTwentyFive">
+                        <input class="form-check-input" type="radio" name = "popularity" id="tenToTwentyFive" value="tenToTwentyFive">
                         <label class="form-check-label" for="tenToTwentyFive">
                             10.1-25.0
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name = "popularity" id="twentyFiveToFifty">
+                        <input class="form-check-input" type="radio" name = "popularity" id="twentyFiveToFifty" value="twentyFiveToFifty">
                         <label class="form-check-label" for="twentyFiveToFifty">
                             25.1-50.0
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name = "popularity" id="fiftyToSeventyFive">
+                        <input class="form-check-input" type="radio" name = "popularity" id="fiftyToSeventyFive" value="fiftyToSeventyFive">
                         <label class="form-check-label" for="fiftyToSeventyFive">
                             50.1-75.0
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name = "popularity" id="seventyFiveandUp" checked>
-                        <label class="form-check-label" for="seventyFiveToHundred">
+                        <input class="form-check-input" type="radio" name = "popularity" id="seventyFiveandUp" value= "seventyFiveandUp" checked>
+                        <label class="form-check-label" for="seventyFiveandUp">
                             75.1+
                         </label>
                     </div>
@@ -183,32 +183,32 @@
                 <div>
                     <h5> Top 5 Artists </h5>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="maroon5">
-                        <label class="form-check-label" for="maroon5">
+                        <input class="form-check-input" type="checkbox" name="Ariana Grande" id="ariana">
+                        <label class="form-check-label" for="ariana">
                             Ariana Grande
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="queen">
-                        <label class="form-check-label" for="queen">
+                        <input class="form-check-input" type="checkbox" name="Lady Gaga" id="gaga">
+                        <label class="form-check-label" for="gaga">
                             Lady Gaga
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="imagineDragons">
-                        <label class="form-check-label" for="imagineDragons">
+                        <input class="form-check-input" type="checkbox" name="Maroon 5" id="maroon5">
+                        <label class="form-check-label" for="maroon5">
                             Maroon 5
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="rammstein">
-                        <label class="form-check-label" for="rammstein">
+                        <input class="form-check-input" type="checkbox" name="Eminem" id="eminem">
+                        <label class="form-check-label" for="eminem">
                             Eminem
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="aerosmith">
-                        <label class="form-check-label" for="aerosmith">
+                        <input class="form-check-input" type="checkbox" name="Queen" id="queen">
+                        <label class="form-check-label" for="queen">
                             Queen
                         </label>
                     </div>
@@ -220,37 +220,37 @@
                     <h5> Lyric Keywords </h5>
                     <!-- REFERENCE: https://wordcounter.net/blog/2017/01/09/102797_most-popular-words-songs.html -->
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="babyKey">
+                        <input class="form-check-input" type="checkbox" name="baby" id="babyKey">
                         <label class="form-check-label" for="babyKey">
                             "Baby"
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="dieKey">
+                        <input class="form-check-input" type="checkbox" name="die" id="dieKey">
                         <label class="form-check-label" for="dieKey">
                             "Die"
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="loveKey">
+                        <input class="form-check-input" type="checkbox" name="love" id="loveKey">
                         <label class="form-check-label" for="loveKey">
                             "Love"
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="nightKey">
+                        <input class="form-check-input" type="checkbox" name="night" id="nightKey">
                         <label class="form-check-label" for="nightKey">
                             "Night"
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="rockKey">
+                        <input class="form-check-input" type="checkbox" name="rock" id="rockKey">
                         <label class="form-check-label" for="rockKey">
                             "Rock"
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="timeKey">
+                        <input class="form-check-input" type="checkbox" name="time" id="timeKey">
                         <label class="form-check-label" for="timeKey">
                             "Time"
                         </label>
@@ -262,109 +262,91 @@
                 <div>
                     <h5> Genres </h5>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="bluesGenre">
+                        <input class="form-check-input" type="checkbox" name="Blues" id="bluesGenre">
                         <label class="form-check-label" for="bluesGenre">
                             Blues
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="classicRockGenre">
-                        <label class="form-check-label" for="classicRockGenre">
-                            Classic Rock
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="countryGenre">
+                        <input class="form-check-input" type="checkbox" name="Country" id="countryGenre">
                         <label class="form-check-label" for="countryGenre">
                             Country
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="folkGenre">
+                        <input class="form-check-input" type="checkbox" name="Folk" id="folkGenre">
                         <label class="form-check-label" for="folkGenre">
                             Folk
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="hardcoreGenre">
+                        <input class="form-check-input" type="checkbox" name="Hardcore" id="hardcoreGenre">
                         <label class="form-check-label" for="hardcoreGenre">
                             Hardcore
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="hiphopGenre">
+                        <input class="form-check-input" type="checkbox" name="Hip Hop" id="hiphopGenre">
                         <label class="form-check-label" for="hiphopGenre">
                             Hip Hop
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="indieGenre">
+                        <input class="form-check-input" type="checkbox" name="Indie" id="indieGenre">
                         <label class="form-check-label" for="indieGenre">
                             Indie
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="instrumentalGenre">
+                        <input class="form-check-input" type="checkbox" name="Instrumental" id="instrumentalGenre">
                         <label class="form-check-label" for="instrumentalGenre">
                             Instrumental
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="jazzGenre">
+                        <input class="form-check-input" type="checkbox" name="Jazz" id="jazzGenre">
                         <label class="form-check-label" for="jazzGenre">
                             Jazz
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="kpopGenre">
+                        <input class="form-check-input" type="checkbox" name="K-Pop" id="kpopGenre">
                         <label class="form-check-label" for="kpopGenre">
                             K-Pop
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="metalGenre">
+                        <input class="form-check-input" type="checkbox" name="metalGenre" id="metalGenre">
                         <label class="form-check-label" for="metalGenre">
                             Metal
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="popGenre">
+                        <input class="form-check-input" type="checkbox" name="Pop" id="popGenre">
                         <label class="form-check-label" for="popGenre">
                             Pop
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="popRockGenre">
-                        <label class="form-check-label" for="popRockGenre">
-                            Pop Rock
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="punkRockGenre">
-                        <label class="form-check-label" for="punkRockGenre">
-                            Punk Rock
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="rbGenre">
+                        <input class="form-check-input" type="checkbox" name="R&B" id="rbGenre">
                         <label class="form-check-label" for="rbGenre">
                             R&B
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="rapGenre">
+                        <input class="form-check-input" type="checkbox" name="Rap" id="rapGenre">
                         <label class="form-check-label" for="rapGenre">
                             Rap
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="reggaeGenre">
+                        <input class="form-check-input" type="checkbox" name="Reggae" id="reggaeGenre">
                         <label class="form-check-label" for="reggaeGenre">
                             Reggae
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="rockGenre">
+                        <input class="form-check-input" type="checkbox" name="Rock" id="rockGenre">
                         <label class="form-check-label" for="rockGenre">
                             Rock
                         </label>
@@ -374,7 +356,7 @@
         </div>
     </div>
 </div>
-    <script src = ""></script>
+    <script src = "advancedSearch.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
