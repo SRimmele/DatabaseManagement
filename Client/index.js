@@ -1,74 +1,9 @@
-
-// document.addEventListener('DOMContentLoaded', getAllArtists);
-// function getAllArtists() {
-//     fetch('http://localhost:5000/getAll')
-//     .then(response => response.json())
-//     .then(data => loadHTMLTable(data['data']));
-    
-// }
-
-// document.querySelector('table tbody').addEventListener('click', function(event) {
-//     if (event.target.className === "delete-row-btn") {
-//         deleteRowById(event.target.dataset.id);
-//     }
-//     if (event.target.className === "edit-row-btn") {
-//         handleEditRow(event.target.dataset.id);
-//     }
-// });
-
 const updateBtn = document.querySelector('#update-row-btn');
 const searchBtn = document.querySelector('#search-btn'); 
 const addArtistBtn = document.querySelector('#add-artist-btn'); 
 const searchCategory = document.querySelector('#searchSelect');  
 const searchFormInput = document.querySelector('#basic-search-form'); 
 
-// searchFormInput.addEventListener('submit', searchByCategory); 
-
-// function searchByCategory(event){
-
-//     const searchValue = document.querySelector('#search-input').value; 
-//     //console.log(searchCategory.value); 
-
-//     if(searchCategory.value === '1'){
-//         //console.log("You're searching for Songs!")
-//         fetch('http://localhost:5000/song/search/' +searchValue)
-//         .then(response => response.json())
-//         .then(data => loadSongHTMLTable(data['data'])); 
-//     }
-
-//     else if(searchCategory.value === '2'){
-//         fetch('http://localhost:5000/artist/search/' +searchValue)
-//         .then(response => response.json())
-//         .then(data => loadHTMLTable(data['data'])); 
-//     }
-
-//     else if(searchCategory.value === '3'){ 
-//         fetch('http://localhost:5000/genre/search/' + searchValue)
-//         .then(response => response.json())
-//         .then(data => loadHTMLTable(data['data']));  
-//     }
-
-//     else if(searchCategory.value === '4'){
-        
-//         fetch('http://localhost:5000/lyric/search/' +searchValue)
-//         .then(response => response.json())
-//         .then(data => loadSongHTMLTable(data['data'])); 
-//     }
-
-//     else{
-//         alert("Please choose a category!"); 
-//     }
-// } 
-
-// searchBtn.onclick = function() {
-//     const searchValue = document.querySelector('#search-input').value;
-
-//     fetch('http://localhost:5000/search/' + searchValue)
-//     .then(response => response.json())
-//     .then(data => loadHTMLTable(data['data']));
-// }
-
-//searchBtn.onclick = searchByCategory(); 
 
 function deleteRowById(id) {
     fetch('http://localhost:5000/delete/' + id, {
@@ -166,74 +101,4 @@ updateBtn.onclick = function() {
 
 // }
 
-// function insertRowIntoTable(data) {
-//     console.log(data);
-//     const table = document.querySelector('table tbody');
-//     const isTableData = table.querySelector('.no-data');
-
-//     let tableHtml = "<tr>";
-
-//     tableHtml += `<td><button class="delete-row-btn" data-id=${data.ID}>Delete</td>`;
-//     tableHtml += `<td><button class="edit-row-btn" data-id=${data.ID}>Edit</td>`;
-
-//     tableHtml += "</tr>";
-
-//     if (isTableData) {
-//         table.innerHTML = tableHtml;
-//     } else {
-//         const newRow = table.insertRow();
-//         newRow.innerHTML = tableHtml;
-//     }
-// }
-
-<<<<<<< HEAD
-function loadHTMLTable(data) {
-    const table = document.querySelector('table tbody');
-
-    if (data.length === 0) {
-        table.innerHTML = "<tr><td class='no-data' colspan='8'>No Data</td></tr>";
-        return;
-    }
-
-    let tableHtml = "";
-
-    data.forEach(function ({artistID, artistName, songAmt, popularity, link, mainGenreID, otherGenreID}) {
-        tableHtml += "<tr>";
-        tableHtml += `<td>${artistName}</td>`;
-        tableHtml += `<td>${songAmt}</td>`;
-        tableHtml += `<td>${popularity}</td>`; 
-        tableHtml += `<td>${link}</td>`;
-        tableHtml += `<td>${mainGenreID}</td>`; 
-        tableHtml += `<td>${otherGenreID}</td>`; 
-        //tableHtml += `<td><button class="delete-row-btn" data-id=${artistID}>Delete</td>`;
-        //tableHtml += `<td><button class="edit-row-btn" data-id=${artistID}>Edit</td>`;
-        tableHtml += "</tr>";
-    });
-=======
-// function loadHTMLTable(data) {
-//     const table = document.querySelector('table tbody');
->>>>>>> 767b4ec6a458d9dc2714acec12b2d34b606faebd
-
-//     if (data.length === 0) {
-//         table.innerHTML = "<tr><td class='no-data' colspan='8'>No Data</td></tr>";
-//         return;
-//     }
-
-//     let tableHtml = "";
-
-//     data.forEach(function ({artistID, artistName, songAmt, popularity, link, mainGenreID, otherGenreID}) {
-//         tableHtml += "<tr>";
-//         tableHtml += `<td>${artistName}</td>`;
-//         tableHtml += `<td>${songAmt}</td>`;
-//         tableHtml += `<td>${popularity}</td>`; 
-//         tableHtml += `<td>${link}</td>`;
-//         tableHtml += `<td>${mainGenreID}</td>`; 
-//         tableHtml += `<td>${otherGenreID}</td>`; 
-//         tableHtml += `<td><button class="delete-row-btn" data-id=${artistID}>Delete</td>`;
-//         //tableHtml += `<td><button class="edit-row-btn" data-id=${artistID}>Edit</td>`;
-//         tableHtml += "</tr>";
-//     });
-
-//     table.innerHTML = tableHtml;
-// }
 

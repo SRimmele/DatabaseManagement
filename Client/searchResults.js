@@ -1,41 +1,45 @@
-// document.addEventListener('DOMContentLoaded', getAllArtists);
-// function getAllArtists() {
-//     fetch('http://localhost:5000/getAll')
-//     .then(response => response.json())
-//     .then(data => loadHTMLTable(data['data']));
-// }
+document.addEventListener('DOMContentLoaded', searchWithQueryParams);
+function searchWithQueryParams() {
+    const url = new URL(window.location); 
+    const searchValue = url.searchParams.get("search-input"); 
+    const searchCategory = url.searchParams.get("searchSelect"); 
+    searchByCategory(searchValue, searchCategory); 
+}
 
 const searchCategory = document.querySelector('#searchSelect'); 
 const searchFormInput = document.querySelector('#basic-search-form'); 
 const searchBtn = document.querySelector('#search-btn'); 
+const searchValue = document.querySelector('#search-input'); 
 
-searchFormInput.addEventListener('submit', searchByCategory); 
+searchFormInput.addEventListener('submit', handleFormSubmit); 
 
-async function searchByCategory(event){
+function handleFormSubmit(event){
     event.preventDefault(); 
 
-    const searchValue = document.querySelector('#search-input').value; 
-    console.log(searchCategory.value); 
+    searchByCategory(searchValue.value, searchCategory.value); 
+}
 
-    if(searchCategory.value === '1'){
+async function searchByCategory(searchValue, searchCategory){
+
+    if(searchCategory === '1' && searchValue){
         const response = await fetch('http://localhost:5000/song/search/' +searchValue)
         .then(response => response.json())
         .then(data => loadSongHTMLTable(data['data'])); 
     }
 
-    else if(searchCategory.value === '2'){
+    else if(searchCategory === '2' && searchValue){
         const response = await fetch('http://localhost:5000/artist/search/' +searchValue)
         .then(response => response.json())
         .then(data => loadArtistHTMLTable(data['data'])); 
     }
 
-    else if(searchCategory.value === '3'){ 
+    else if(searchCategory === '3' && searchValue){ 
         const response = await fetch('http://localhost:5000/genre/search/' + searchValue)
         .then(response => response.json())
         .then(data => loadArtistHTMLTable(data['data']));  
     }
 
-    else if(searchCategory.value === '4'){
+    else if(searchCategory === '4' && searchValue){
         
         const response = await fetch('http://localhost:5000/lyric/search/' +searchValue)
         .then(response => response.json())
@@ -43,7 +47,7 @@ async function searchByCategory(event){
     }
 
     else{
-        alert("Please choose a category!"); 
+        alert("Please choose a category and input a keyword!"); 
     }
 } 
 
