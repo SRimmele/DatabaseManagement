@@ -183,16 +183,16 @@ app.get('/advanced/search', (request, response) => {
     .catch(err => console.log(err));
 })
 
-app.get('/user/friends', (request, response) => {
-    const {firstName, lastName} = request.params; 
-    const db = dbService.getDbServiceInstance(); 
+// app.get('/user/friends', (request, response) => {
+//     const {username} = request.params; 
+//     const db = dbService.getDbServiceInstance(); 
     
-    const result = db.getUserFriends(); 
+//     const result = db.getUserFriends(); 
 
-    result 
-    .then(data => response.json({data : data}))
-    .catch(err => console.log(err)); 
-})
+//     result 
+//     .then(data => response.json({data : data}))
+//     .catch(err => console.log(err)); 
+// })
 
 app.get('/user/search/:user', (request, response) => {
     const {user} = request.params;
