@@ -205,7 +205,7 @@ function loadHTMLTable(data) {
         tableHtml += `<td>${mainGenreID}</td>`; 
         tableHtml += `<td>${otherGenreID}</td>`; 
         tableHtml += `<td><button class="delete-row-btn" data-id=${artistID}>Delete</td>`;
-        tableHtml += `<td><button class="edit-row-btn" data-id=${artistID}>Edit</td>`;
+        //tableHtml += `<td><button class="edit-row-btn" data-id=${artistID}>Edit</td>`;
         tableHtml += "</tr>";
     });
 
