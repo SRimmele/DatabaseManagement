@@ -35,7 +35,7 @@ async function loadFriends(data) {
         friendCardHtml += "<div class='col'>";
         friendCardHtml += "<div class='card text-center text-dark bg-light'>";
         friendCardHtml += "<div class = 'card-header'>";
-        friendCardHtml += `<h3 ='card-title'> ${friendUsername} </h3>`;
+        friendCardHtml += `<h3 class ='card-title'> ${friendUsername} </h3>`;
         friendCardHtml += "</div>";
         friendCardHtml += "<div class = 'card-body'>"; 
         friendCardHtml += "<ul class = 'list-group list-group-flush'>";
@@ -46,12 +46,12 @@ async function loadFriends(data) {
         friendCardHtml += `<li class = 'list-group-item'>${recentSong5}</li>`;
         friendCardHtml += "</ul>";
         friendCardHtml += "</div>";
-        friendCardHtml += "<div class = 'card-footer'>";
-        friendCardHtml += `<button class="btn btn-secondary delete-row-btn" data-id=${friendID}>Delete`;
+        friendCardHtml += "<div class = 'card-footer text-center'>";
+        friendCardHtml += `<button class="btn btn-secondary delete-row-btn" data-id=${friendID}> Delete Friend </button>`;
         friendCardHtml += "</div>";
         friendCardHtml += "</div>";
         friendCardHtml += "</div>";
     });
 
-    friendCardHtml.innerHTML = friendCardHtml;
+    card.innerHTML = friendCardHtml;
 }

@@ -95,19 +95,24 @@ function loadArtistHTMLTable(data) {
     const table = document.querySelector('#artistTable tbody');
 
     if (data.length === 0) {
-        table.innerHTML = "<tr><td class='no-data' colspan='8'>No Data</td></tr>";
+        table.innerHTML = "<tr><td class='no-data' colspan='8'>No good matches for your search</td></tr>";
         return;
     }
 
     let tableHtml = "";
+    let count = 1;
 
     data = data.filter((value, index) => data.findIndex(x => x.artistName === value.artistName) === index)
 
-    data.forEach(function ({ artistName, artistLink}) {
+    data.forEach(function ({artistName, artistLink}) {
+        
         tableHtml += "<tr>";
+        tableHtml += `<td>${count}</td>`;
         tableHtml += `<td>${artistName}</td>`; 
         tableHtml += `<td>${artistLink}</td>`;
         tableHtml += "</tr>";
+
+        ++count;
     });
 
     table.innerHTML = tableHtml;
@@ -119,17 +124,22 @@ function loadSongHTMLTable(data) {
     const table = document.querySelector('#songTable tbody');
 
     if (data.length === 0) {
-        table.innerHTML = "<tr><td class='no-data' colspan='8'>No Data</td></tr>";
+        table.innerHTML = "<tr><td class='no-data' colspan='8'>No good matches for your search</td></tr>";
         return;
     }
 
     let tableHtml = "";
+    let count = 1;
 
     data.forEach(function ({songName, songLink}) {
+        
         tableHtml += "<tr>";
+        tableHtml += `<td>${count}</td>`;
         tableHtml += `<td>${songName}</td>`; 
         tableHtml += `<td>${songLink}</td>`; 
         tableHtml += "</tr>";
+
+        ++count;
     });
 
     table.innerHTML = tableHtml;

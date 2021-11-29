@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', getAllArtists);
 function getAllArtists() {
     fetch('http://localhost:5000/getAll')
