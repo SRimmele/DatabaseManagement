@@ -378,34 +378,34 @@ class DbService {
     }
 
 
-    async getUserFriends(firstName, lastName, username){
-        const response = await new Promise((resolve, reject) => {
-            const query = "SELECT username FROM friends, users WHERE connectedToID = users.userID AND friends.userID = ?;"; 
-            connection.query(query, [firstName, lastName, username], (err, results) => {
-                if (err) reject(new Error(err.message)); 
-                resolve(results); 
-            })
-            if(response.length == 0)
-                throw new Error("Oh, no! You dont't have any friends!"); 
-            else
-                return response[0];  
-        })
-    }
+    // async getUserFriends(firstName, lastName, username){
+    //     const response = await new Promise((resolve, reject) => {
+    //         const query = "SELECT username FROM friends, users WHERE connectedToID = users.userID AND friends.userID = ?;"; 
+    //         connection.query(query, [firstName, lastName, username], (err, results) => {
+    //             if (err) reject(new Error(err.message)); 
+    //             resolve(results); 
+    //         })
+    //         if(response.length == 0)
+    //             throw new Error("Oh, no! You dont't have any friends!"); 
+    //         else
+    //             return response[0];  
+    //     })
+    // }
 
-    async getFriendsRecents(){
-        const response = await new Promise((resolve, reject) => {
-            const query = ""; 
-            connection.query(query, [songName], (err, results) => {
-                if(err) reject(new Error(err.message)); 
-                resolve(results); 
-            })
+    // async getFriendsRecents(){
+    //     const response = await new Promise((resolve, reject) => {
+    //         const query = ""; 
+    //         connection.query(query, [songName], (err, results) => {
+    //             if(err) reject(new Error(err.message)); 
+    //             resolve(results); 
+    //         })
 
-            if(response.length == 0)
-                throw new Error('Hmm... Seems they have been pretty quiet lately.'); 
-            else 
-                return response[0]; 
-        })
-    }
+    //         if(response.length == 0)
+    //             throw new Error('Hmm... Seems they have been pretty quiet lately.'); 
+    //         else 
+    //             return response[0]; 
+    //     })
+    // }
 
 
 }

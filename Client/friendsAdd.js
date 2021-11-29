@@ -14,23 +14,24 @@ async function searchUsers(event){
     .then(data => loadUserHTMLTable(data['data'])); 
 } 
 
-// const addBtn = document.querySelector('#add-row-btn');
+const addBtn = document.querySelector('#add-row-btn');
 
-// addBtn.onclick = function() {
+addBtn.onclick = function(username) {
 
-//     fetch('http://localhost:5000/user/addFriends',{
-//         headers: {
-//             'Content-type': 'application/json'
-//         }, 
-//         method: 'POST'
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//         if(data.succes){
-//             location.reload(); 
-//         }
-//     }); 
-// }
+    fetch('http://localhost:5000/user/addFriends',{
+        headers: {
+            'Content-type': 'application/json'
+        }, 
+        method: 'POST', 
+        body: JSON.stringify({name: username})
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.succes){
+            location.reload(); 
+        }
+    }); 
+}
 
 function loadUserHTMLTable(data) {
     const table = document.querySelector('table');
