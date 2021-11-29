@@ -69,7 +69,7 @@ function loadArtistHTMLTable(data) {
         tableHtml += "<tr>";
         tableHtml += `<td>${count}</td>`;
         tableHtml += `<td>${artistName}</td>`; 
-        tableHtml += `<td>${artistLink}</td>`;
+        tableHtml += `<td><button class="btn btn-secondary redirect-row-btn" data-id=${data.ID}> More Info </td>`;
         tableHtml += "</tr>";
 
         ++count;
@@ -96,7 +96,7 @@ function loadSongHTMLTable(data) {
         tableHtml += "<tr>";
         tableHtml += `<td>${count}</td>`;
         tableHtml += `<td>${songName}</td>`; 
-        tableHtml += `<td><button class="redirect-row-btn" data-id=${data.ID}> More Info </td>`;
+        tableHtml += `<td><button class="btn btn-secondary redirect-row-btn" data-id=${data.ID}> More Info </td>`;
         tableHtml += "</tr>";
 
         ++count;

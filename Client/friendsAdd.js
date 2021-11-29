@@ -50,12 +50,8 @@ function loadUserHTMLTable(data) {
     data.forEach(function ({username}) {
         
         tableHtml += "<tr class = 'dflex'>";
-        tableHtml += "<div>";
-        tableHtml += `<td scope = 'row' colspan='2'>${username}`;
-        tableHtml += "</div>";
-        tableHtml += "<div>";
-        tableHtml += `<button class="ms-auto btn btn-secondary add-row-btn" data-id=${data.ID}> Add friend </td>`;
-        tableHtml += "</div>";
+        tableHtml += `<td scope = 'row' colspan='2' class = ''>${username}`;
+        tableHtml += `<button class="btn btn-secondary add-row-btn" data-id=${data.ID}> Add friend </td>`;
         tableHtml += "</tr>";
     });
 
