@@ -1,5 +1,3 @@
-const { WSAEINVALIDPROCTABLE } = require("constants");
-
 const userCreatebtn = document.querySelector('#userCreate'); 
 
 userCreatebtn.onclick = () => createUserAccount(); 
@@ -27,10 +25,12 @@ fetch('http://localhost:5000/user/create', {
     body: JSON.stringify({username: usernameInput.value, password: passwordInput.value, email: emailInput.value, firstName: firstNameInput.value, lastName: lastNameInput.value , age: ageInput.value})
 })
 .then(response => {
-    if(response.status === 200)
+    if(response.status === 200){
+        window.location = "login.html"; 
         return null; 
-    window.location = "/user/login"; 
-    //return response.text(); 
+    }
+    
+    return response.text(); 
 })
 .then(data => {
     if(data !== null){
