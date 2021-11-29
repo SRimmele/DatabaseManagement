@@ -40,23 +40,8 @@
                         </a>
                     </li>
                     <li class = "nav-item pe-3">
-                        <a class="nav-link" href="playlist.html">
-                            Playlist
-                        </a>
-                    </li>
-                    <li class = "nav-item pe-5">
-                        <a class="nav-link" href="friends.html">
-                            Friends
-                        </a>
-                    </li>
-                    <li class = "nav-item pe-3">
-                        <a class = "nav-link">
-                            Hello!
-                        </a>
-                    </li>
-                    <li class = "nav-item pe-3">
-                        <a class = "nav-link" href="logout.html">
-                            Logout
+                        <a class = "nav-link" href="login.html">
+                            Login
                         </a>
                     </li>
                 </ul>
@@ -86,13 +71,13 @@
             <br><br><br>
         </div>-->
         <div class = "form-inline px-5 py-5 dflex justify-content-md-center align-center text-center pt-5">
-            <form id = "basic-search-form" action = "/searchResults.html" method="get">
+            <form id = "basic-search-form" action = "/searchResults.html">
                 <div class="input-group mb-3 input-group-lg mt-3 pt-5 px-5">
                     <!-- text search -->
-                    <input type="search" class="form-control form-control-lg login-form" id = "search-input" name="search-input" placeholder = "Search songs, artists, genre, lyrics, and more ..." aria-label="Text input with dropdown button">
+                    <input type="search" class="form-control form-control-lg login-form" id = "search-input" placeholder = "Search songs, artists, genre, lyrics, and more ..." aria-label="Text input with dropdown button">
                     <!-- category search -->
-                    <select class="form-select-md" id="searchSelect" name="searchSelect">
-                        <option selected value="0"> Categories </option>
+                    <select class="form-select-md" id="searchSelect">
+                        <option selected> Categories </option>
                         <option value="1"> Song </option>
                         <option value="2"> Artist </option>
                         <option value="3"> Genre </option>
