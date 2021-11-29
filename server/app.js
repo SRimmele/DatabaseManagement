@@ -182,4 +182,15 @@ app.get('/user/friends', (request, response) => {
     .catch(err => console.log(err)); 
 })
 
+app.get('/user/search/:user', (request, response) => {
+    const {user} = request.params;
+    const db = dbService.getDbServiceInstance();
+
+    const result = db.searchByUser(user);
+
+    result
+    .then(data => response.json({data : data}))
+    .catch(err => console.log(err));
+})
+
 app.listen(process.env.PORT, () => console.log('app is running'));
