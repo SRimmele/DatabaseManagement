@@ -172,7 +172,7 @@ class DbService {
     async searchBySong(song) {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM song, artist WHERE songName LIKE CONCAT('%', ?, '%') AND song.artistlink = artist.link ORDER BY songName;";
+                const query = "SELECT * FROM artist, song WHERE songName LIKE CONCAT('%', ?, '%') AND song.artistlink = artist.link ORDER BY songName;";
 
                 connection.query(query, [song], (err, results) => {
                     if (err) reject(new Error(err.message));
@@ -189,7 +189,7 @@ class DbService {
     async searchByLyrics(lyrics) {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM song, artist WHERE songName LIKE CONCAT('%', ?, '%') AND song.artistlink = artist.link ORDER BY songName;";
+                const query = "SELECT * FROM artist, song WHERE songName LIKE CONCAT('%', ?, '%') AND song.artistlink = artist.link ORDER BY songName;";
 
                 connection.query(query, [lyrics], (err, results) => {
                     if (err) reject(new Error(err.message));

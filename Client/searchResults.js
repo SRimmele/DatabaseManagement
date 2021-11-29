@@ -51,7 +51,7 @@ function loadArtistHTMLTable(data) {
     const table = document.querySelector('table');
 
     if (data.length === 0) {
-        table.innerHTML = "<tr><td class='no-data' colspan='8'>No Data</td></tr>";
+        table.innerHTML = "<tr><td class='no-data' colspan='8'> No good matches for your search </td></tr>";
         return;
     }
 
@@ -66,15 +66,22 @@ function loadArtistHTMLTable(data) {
     tableHtml += "<th>Other Genres</th>";
     tableHtml += "</thead>";
 
-    data.forEach(function ({artistID, artistName, songAmt, popularity, link, mainGenreID, otherGenreID}) {
+    let newLink = "http://www.lyricsdepot.com";
+
+    data.forEach(function ({artistName, songAmt, popularity, link, mainGenreID, otherGenreID}) {
+        
+        newLink += link;
+        
         tableHtml += "<tr>";
         tableHtml += `<td>${artistName}</td>`;
         tableHtml += `<td>${songAmt}</td>`;
         tableHtml += `<td>${popularity}</td>`; 
-        tableHtml += `<td>${link}</td>`;
+        tableHtml += `<td> <a href= "${newLink}"> Find all there songs here! </a></td>`; 
         tableHtml += `<td>${mainGenreID}</td>`; 
         tableHtml += `<td>${otherGenreID}</td>`;
         tableHtml += "</tr>";
+
+        newLink = "http://www.lyricsdepot.com";
     });
 
     table.innerHTML = tableHtml;
@@ -84,7 +91,7 @@ function loadSongHTMLTable(data) {
     const table = document.querySelector('table');
 
     if (data.length === 0) {
-        table.innerHTML = "<tr><td class='no-data' colspan='8'>No Data</td></tr>";
+        table.innerHTML = "<tr><td class='no-data' colspan='8'> No good matches for your search </td></tr>";
         return;
     }
 
@@ -97,13 +104,20 @@ function loadSongHTMLTable(data) {
     tableHtml += "<th>Lyrics</th>";
     tableHtml += "</thead>";
 
+    let newLink = "http://www.lyricsdepot.com";
+
     data.forEach(function ({songName, artistName, link, lyrics}) {
+        
+        newLink += link;
+
         tableHtml += "<tr>";
         tableHtml += `<td>${songName}</td>`; 
         tableHtml += `<td>${artistName}</td>`;
-        tableHtml += `<td>${link}</td>`; 
-        tableHtml += `<td>${lyrics}</td>`; 
+        tableHtml += `<td> <a href= "${newLink}"> Listen to it here! </a></td>`; 
+        tableHtml += `<td>${lyrics}...</td>`; 
         tableHtml += "</tr>";
+
+        newLink = "http://www.lyricsdepot.com";
     });
 
     table.innerHTML = tableHtml;
