@@ -91,12 +91,12 @@ function loadSongHTMLTable(data) {
     let tableHtml = "";
     let count = 1;
 
-    data.forEach(function ({songName, songLink}) {
+    data.forEach(function ({songName, songID}) {
         
         tableHtml += "<tr>";
         tableHtml += `<td>${count}</td>`;
         tableHtml += `<td>${songName}</td>`; 
-        tableHtml += `<td>${songLink}</td>`; 
+        tableHtml += `<td><button class="redirect-row-btn" data-id=${data.ID}> More Info </td>`;
         tableHtml += "</tr>";
 
         ++count;
