@@ -5,46 +5,6 @@ const popularityForm = document.querySelector('#popularity-form');
 const topArtistForm = document.querySelector('#top-artists-form'); 
 const lyricsForm = document.querySelector('#lyrics-form'); 
 const genreForm = document.querySelector('#genre-form'); 
-// const artistCategoryInput = document.querySelector('#artistCategory');
-// const songCategoryInput = document.querySelector('#songCategory'); 
-// const genreCategoryInput = document.querySelector('#lyricCategory'); 
-// const zeroToTenPop = document.querySelector('#zeroToTen'); 
-// const tenToTwentyFivePop = document.querySelector('#tenToTwentyFive'); 
-// const twentyFivetoFiftyPop = document.querySelector('#twentyFiveToFifty')
-// const fiftyToSeventyFivePop = document.querySelector('#fiftyToSeventyFive'); 
-// const seventyFiveandUpPop = document.querySelector('#seventyFiveandUp'); 
-// const topMaroon5 = document.querySelector('#maroon5'); 
-// const topQueen = document.querySelector('#queen'); 
-// const topGaga = document.querySelector('#gaga'); 
-// const topGrande = document.querySelector('#ariana'); 
-// const topEminem = document.querySelector('#eminem'); 
-// const babyLyric = document.querySelector('#babyKey'); 
-// const dieLyric = document.querySelector('#dieKey'); 
-// const loveLyric = document.querySelector('#loveKey'); 
-// const nightLyric = document.querySelector('#nightKey'); 
-// const rockLyric = document.querySelector('#rockKey'); 
-// const timeLyric = document.querySelector('#timeKey'); 
-// const blueGenre = document.querySelector('#bluesGenre'); 
-// const classRockGenre = document.querySelector('#classicRockGenre'); 
-// const countryGenre = document.querySelector('#countryGenre'); 
-// const folkGenre = document.querySelector('#folkGenre'); 
-// const hardcoreGenre = document.querySelector('#hardcoreGenre'); 
-// const hiphopGenre = document.querySelector('#hiphopGenre'); 
-// const indieGenre = document.querySelector('#indieGenre'); 
-// const instrumentalGenre = document.querySelector('#instrumentalGenre'); 
-// const jazzGenre = document.querySelector('#jazzGenre'); 
-// const kpopGenre = document.querySelector('#kpopGenre'); 
-// const metalGenre = document.querySelector('#metalGenre'); 
-// const popGenre = document.querySelector('#popGenre'); 
-// const popRockGenre = document.querySelector('#popRockGenre'); 
-// const punkGenre = document.querySelector('#punkRockGenre'); 
-// const rbGenre = document.querySelector('#rbGenre'); 
-// const rapGenre = document.querySelector('#rapGenre'); 
-// const reggaeGenre = document.querySelector('#reggaeGenre'); 
-// const rockGenre = document.querySelector('#rockGenre'); 
-
-
-
 
 searchFormInput.addEventListener('submit', advancedSearch); 
 

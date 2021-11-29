@@ -1,10 +1,3 @@
-document.addEventListener('DOMContentLoaded', getAllArtists);
-function getAllArtists() {
-    fetch('http://localhost:5000/getAll')
-    .then(response => response.json())
-    .then(data => loadHTMLTable(data['data']));
-}
-
 const searchCategory = document.querySelector('#searchSelect'); 
 const searchFormInput = document.querySelector('#basic-search-form'); 
 const searchBtn = document.querySelector('#search-btn'); 
@@ -16,7 +9,7 @@ async function searchUsers(event){
 
     const searchValue = document.querySelector('#search-input').value; 
         
-    const response = await fetch('http://localhost:5000/user/search/')
+    const response = await fetch('http://localhost:5000/user/search/' + searchValue)
     .then(response => response.json())
     .then(data => loadUserHTMLTable(data['data'])); 
 } 
