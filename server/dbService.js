@@ -293,6 +293,24 @@ class DbService {
 
     }
 
+    async resetUserPassword(email, password){
+        if(await this.emailExists(email)){
+            try{
+                const response = await new Promise((resolve, reject) => {
+                    const query = "UPDATE users SET password = ? WHERE email = ?;"; 
+                    connection.query(query, [password, email], (err, results) => {
+                        if(err) reject(new Error(err.message)); 
+                        resolve(results); 
+                    })
+                }); 
+            }catch(error){
+                console.log(error); 
+            }
+        }
+        else
+            throw new Error('User not found')
+    }
+
     async usernameExists(username){
         const result = await this.getUserByUsername(username); 
         console.log(JSON.stringify(result)); 
@@ -318,7 +336,7 @@ class DbService {
                 throw new Error('User not found.'); 
             else 
                 return response[0]; 
-    }
+    } 
 
     async advancedSearch(queryParams){
         const response = await new Promise((resolve, reject) => {
@@ -360,34 +378,34 @@ class DbService {
     }
 
 
-    // async getUserFriends(firstName, lastName, username){
-    //     const response = await new Promise((resolve, reject) => {
-    //         const query = "SELECT username FROM friends, users WHERE connectedToID = users.userID AND friends.userID = ?;"; 
-    //         connection.query(query, [firstName, lastName, username], (err, results) => {
-    //             if (err) reject(new Error(err.message)); 
-    //             resolve(results); 
-    //         })
-    //         if(response.length == 0)
-    //             throw new Error("Oh, no! You dont't have any friends!"); 
-    //         else
-    //             return response[0];  
-    //     })
-    // }
+    async getUserFriends(firstName, lastName, username){
+        const response = await new Promise((resolve, reject) => {
+            const query = "SELECT username FROM friends, users WHERE connectedToID = users.userID AND friends.userID = ?;"; 
+            connection.query(query, [firstName, lastName, username], (err, results) => {
+                if (err) reject(new Error(err.message)); 
+                resolve(results); 
+            })
+            if(response.length == 0)
+                throw new Error("Oh, no! You dont't have any friends!"); 
+            else
+                return response[0];  
+        })
+    }
 
-    // async getFriendsRecents(){
-    //     const response = await new Promise((resolve, reject) => {
-    //         const query = ""; 
-    //         connection.query(query, [songName], (err, results) => {
-    //             if(err) reject(new Error(err.message)); 
-    //             resolve(results); 
-    //         })
+    async getFriendsRecents(){
+        const response = await new Promise((resolve, reject) => {
+            const query = ""; 
+            connection.query(query, [songName], (err, results) => {
+                if(err) reject(new Error(err.message)); 
+                resolve(results); 
+            })
 
-    //         if(response.length == 0)
-    //             throw new Error('Hmm... Seems they have been pretty quiet lately.'); 
-    //         else 
-    //             return response[0]; 
-    //     })
-    // }
+            if(response.length == 0)
+                throw new Error('Hmm... Seems they have been pretty quiet lately.'); 
+            else 
+                return response[0]; 
+        })
+    }
 
 
 }

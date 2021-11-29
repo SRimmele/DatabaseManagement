@@ -129,6 +129,18 @@ app.get('/user/logout', (request, response) => {
     response.send(); 
 })
 
+app.post('/user/passwordReset', (request, response) => {
+    const{email, password} = request.body; 
+    const db = dbService.getDbServiceInstance();
+    
+    console.log(JSON.stringify(request.body)); 
+    const result = db.resetUserPassword(email, password); 
+
+    result
+    .then(data => response.json({success : data}))
+    .catch(err => response.status(400).send(err.message));
+})
+
 app.get('/genre/search/:genre', (request, response) => {
     const {genre} = request.params;
     const db = dbService.getDbServiceInstance();
