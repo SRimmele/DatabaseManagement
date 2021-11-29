@@ -1,20 +1,20 @@
 
-document.addEventListener('DOMContentLoaded', getAllArtists);
-function getAllArtists() {
-    fetch('http://localhost:5000/getAll')
-    .then(response => response.json())
-    .then(data => loadHTMLTable(data['data']));
+// document.addEventListener('DOMContentLoaded', getAllArtists);
+// function getAllArtists() {
+//     fetch('http://localhost:5000/getAll')
+//     .then(response => response.json())
+//     .then(data => loadHTMLTable(data['data']));
     
-}
+// }
 
-document.querySelector('table tbody').addEventListener('click', function(event) {
-    if (event.target.className === "delete-row-btn") {
-        deleteRowById(event.target.dataset.id);
-    }
-    if (event.target.className === "edit-row-btn") {
-        handleEditRow(event.target.dataset.id);
-    }
-});
+// document.querySelector('table tbody').addEventListener('click', function(event) {
+//     if (event.target.className === "delete-row-btn") {
+//         deleteRowById(event.target.dataset.id);
+//     }
+//     if (event.target.className === "edit-row-btn") {
+//         handleEditRow(event.target.dataset.id);
+//     }
+// });
 
 const updateBtn = document.querySelector('#update-row-btn');
 const searchBtn = document.querySelector('#search-btn'); 
@@ -68,7 +68,7 @@ const searchFormInput = document.querySelector('#basic-search-form');
 //     .then(data => loadHTMLTable(data['data']));
 // }
 
-searchBtn.onclick = searchByCategory(); 
+//searchBtn.onclick = searchByCategory(); 
 
 function deleteRowById(id) {
     fetch('http://localhost:5000/delete/' + id, {
@@ -131,84 +131,84 @@ updateBtn.onclick = function() {
 //     .then(data => insertRowIntoTable(data['data'][0]));
 // }
 
-addArtistBtn.onclick = function(){
-    const artistInput = document.querySelector('#artist-name-input');
-    const songAmtInput = document.querySelector('#artist-songAmt-input'); 
-    const popularityInput = document.querySelector('#artist-pop-input'); 
-    const mGenreInput = document.querySelector('#artist-main-input'); 
-    const oGenreInput = document.querySelector('#artist-genres-input'); 
-    const linkInput = document.querySelector('#artist-link-input'); 
+// addArtistBtn.onclick = function(){
+//     const artistInput = document.querySelector('#artist-name-input');
+//     const songAmtInput = document.querySelector('#artist-songAmt-input'); 
+//     const popularityInput = document.querySelector('#artist-pop-input'); 
+//     const mGenreInput = document.querySelector('#artist-main-input'); 
+//     const oGenreInput = document.querySelector('#artist-genres-input'); 
+//     const linkInput = document.querySelector('#artist-link-input'); 
 
-    const artist = artistInput.value; 
-    const songAmt = songAmtInput.value; 
-    const pop = popularityInput.value; 
-    const mGenre = mGenreInput.value; 
-    const oGenre = oGenreInput.value; 
-    const link = linkInput.value; 
+//     const artist = artistInput.value; 
+//     const songAmt = songAmtInput.value; 
+//     const pop = popularityInput.value; 
+//     const mGenre = mGenreInput.value; 
+//     const oGenre = oGenreInput.value; 
+//     const link = linkInput.value; 
 
-    artistInput.value = "";
-    songAmtInput.value = ""; 
-    popularityInput.value = ""; 
-    mGenreInput.value = ""; 
-    oGenreInput.value = ""; 
-    linkInput.value = ""; 
+//     artistInput.value = "";
+//     songAmtInput.value = ""; 
+//     popularityInput.value = ""; 
+//     mGenreInput.value = ""; 
+//     oGenreInput.value = ""; 
+//     linkInput.value = ""; 
 
-    fetch('http://localhost:5000/create', {
-        headers: {
-            'Content-type': 'application/json'
-        },
-        method: 'POST',
-        body: JSON.stringify({ name : artist, songAmt, pop, mGenre, oGenre, link})
-    })
-    .then(response => response.json())
-    .then(data => getAllArtists());
+//     fetch('http://localhost:5000/create', {
+//         headers: {
+//             'Content-type': 'application/json'
+//         },
+//         method: 'POST',
+//         body: JSON.stringify({ name : artist, songAmt, pop, mGenre, oGenre, link})
+//     })
+//     .then(response => response.json())
+//     .then(data => getAllArtists());
 
 
-}
+// }
 
-function insertRowIntoTable(data) {
-    console.log(data);
-    const table = document.querySelector('table tbody');
-    const isTableData = table.querySelector('.no-data');
+// function insertRowIntoTable(data) {
+//     console.log(data);
+//     const table = document.querySelector('table tbody');
+//     const isTableData = table.querySelector('.no-data');
 
-    let tableHtml = "<tr>";
+//     let tableHtml = "<tr>";
 
-    tableHtml += `<td><button class="delete-row-btn" data-id=${data.ID}>Delete</td>`;
-    tableHtml += `<td><button class="edit-row-btn" data-id=${data.ID}>Edit</td>`;
+//     tableHtml += `<td><button class="delete-row-btn" data-id=${data.ID}>Delete</td>`;
+//     tableHtml += `<td><button class="edit-row-btn" data-id=${data.ID}>Edit</td>`;
 
-    tableHtml += "</tr>";
+//     tableHtml += "</tr>";
 
-    if (isTableData) {
-        table.innerHTML = tableHtml;
-    } else {
-        const newRow = table.insertRow();
-        newRow.innerHTML = tableHtml;
-    }
-}
+//     if (isTableData) {
+//         table.innerHTML = tableHtml;
+//     } else {
+//         const newRow = table.insertRow();
+//         newRow.innerHTML = tableHtml;
+//     }
+// }
 
-function loadHTMLTable(data) {
-    const table = document.querySelector('table tbody');
+// function loadHTMLTable(data) {
+//     const table = document.querySelector('table tbody');
 
-    if (data.length === 0) {
-        table.innerHTML = "<tr><td class='no-data' colspan='8'>No Data</td></tr>";
-        return;
-    }
+//     if (data.length === 0) {
+//         table.innerHTML = "<tr><td class='no-data' colspan='8'>No Data</td></tr>";
+//         return;
+//     }
 
-    let tableHtml = "";
+//     let tableHtml = "";
 
-    data.forEach(function ({artistID, artistName, songAmt, popularity, link, mainGenreID, otherGenreID}) {
-        tableHtml += "<tr>";
-        tableHtml += `<td>${artistName}</td>`;
-        tableHtml += `<td>${songAmt}</td>`;
-        tableHtml += `<td>${popularity}</td>`; 
-        tableHtml += `<td>${link}</td>`;
-        tableHtml += `<td>${mainGenreID}</td>`; 
-        tableHtml += `<td>${otherGenreID}</td>`; 
-        tableHtml += `<td><button class="delete-row-btn" data-id=${artistID}>Delete</td>`;
-        //tableHtml += `<td><button class="edit-row-btn" data-id=${artistID}>Edit</td>`;
-        tableHtml += "</tr>";
-    });
+//     data.forEach(function ({artistID, artistName, songAmt, popularity, link, mainGenreID, otherGenreID}) {
+//         tableHtml += "<tr>";
+//         tableHtml += `<td>${artistName}</td>`;
+//         tableHtml += `<td>${songAmt}</td>`;
+//         tableHtml += `<td>${popularity}</td>`; 
+//         tableHtml += `<td>${link}</td>`;
+//         tableHtml += `<td>${mainGenreID}</td>`; 
+//         tableHtml += `<td>${otherGenreID}</td>`; 
+//         tableHtml += `<td><button class="delete-row-btn" data-id=${artistID}>Delete</td>`;
+//         //tableHtml += `<td><button class="edit-row-btn" data-id=${artistID}>Edit</td>`;
+//         tableHtml += "</tr>";
+//     });
 
-    table.innerHTML = tableHtml;
-}
+//     table.innerHTML = tableHtml;
+// }
 

@@ -1,9 +1,9 @@
-document.addEventListener('DOMContentLoaded', getAllArtists);
-function getAllArtists() {
-    fetch('http://localhost:5000/getAll')
-    .then(response => response.json())
-    .then(data => loadHTMLTable(data['data']));
-}
+// document.addEventListener('DOMContentLoaded', getAllArtists);
+// function getAllArtists() {
+//     fetch('http://localhost:5000/getAll')
+//     .then(response => response.json())
+//     .then(data => loadHTMLTable(data['data']));
+// }
 
 const searchCategory = document.querySelector('#searchSelect'); 
 const searchFormInput = document.querySelector('#basic-search-form'); 
