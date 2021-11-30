@@ -6,7 +6,7 @@ const searchFormInput = document.querySelector('#basic-search-form');
 
 
 function deleteRowById(id) {
-    fetch('http://localhost:5000/delete/' + id, {
+    fetch('/delete/' + id, {
         method: 'DELETE'
     })
     .then(response => response.json())

@@ -11,13 +11,10 @@ const connection = mysql.createConnection({
     port: process.env.DB_PORT
 });
 
-
-
 connection.connect((err) => {
     if (err) {
         console.log(err.message);
     }
-    // console.log('db ' + connection.state);
 });
 
 const Arrayify = (value) => Array.isArray(value) ? value : [value]

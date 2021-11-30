@@ -17,7 +17,7 @@ if(passwordInput.value !== rePasswordInput.value){
     return; 
 }
 
-fetch('http://localhost:5000/user/create', {
+fetch('/user/create', {
     headers: {
         'Content-type': 'application/json'
     },
@@ -26,7 +26,7 @@ fetch('http://localhost:5000/user/create', {
 })
 .then(response => {
     if(response.status === 200){
-        window.location = "login.html"; 
+        window.location = "/login"; 
         return null; 
     }
     

@@ -9,7 +9,7 @@ async function searchUsers(event){
 
     const searchValue = document.querySelector('#search-input').value; 
         
-    const response = await fetch('http://localhost:5000/user/search/' + searchValue)
+    const response = await fetch('/user/search/' + searchValue)
     .then(response => response.json())
     .then(data => loadUserHTMLTable(data['data'])); 
 } 

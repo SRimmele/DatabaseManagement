@@ -4,19 +4,90 @@ const sess = {
     secret: 'DrumsData', 
     cookie: {httpOnly: false, secure: false}
 }
+const handlebars = require('express-handlebars'); 
 const session = require('express-session'); 
 const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 
 const dbService = require('./dbService');
-const { response, request } = require('express');
+const { stringsEqual } = require('./helpers/stringsEqual');
 
 app.use(cors());
 app.use(express.json());
 app.use(express.static("../Client")); 
 app.use(express.urlencoded({ extended : false }));
 app.use(session(sess)); 
+app.engine('handlebars', handlebars.engine({
+    defaultLayout: 'main',
+    layoutsDir: __dirname + '/views/layouts',
+    helpers: {
+        stringsEqual
+    }
+})); 
+app.set('view engine', 'handlebars'); 
+app.set('views', './views'); 
+
+app.use((request, response, next) => {
+    let template = 'index';
+    let options = {};
+
+    switch (request.path) {
+        case '/':
+            template = 'index';
+            break;
+
+        case '/advancedSearch':
+            template = 'advancedSearch';
+            break;
+
+        case '/artistSearchResults':
+            template = 'advancedSearch';
+            break;
+
+        case '/createAccount':
+            template = 'createAccount';
+            break;
+
+        case '/forgotPassword':
+            template = 'forgotPassword';
+            break;
+        
+        case '/friends':
+            template = 'friends';
+            break;
+        
+        case '/friendsAdd':
+            template = 'friendsAdd';
+            break;
+        
+        case '/login':
+            template = 'login';
+            break;
+        
+        case '/logout':
+            template = 'logout';
+            break;
+
+        case '/playlist':
+            template = 'playlist';
+            break;
+        
+        case '/searchResults':
+            template = 'searchResults';
+            break;
+        
+        case '/songSearchResult':
+            template = 'songSearchResult';
+            break;
+        
+        default:
+            return next();
+    }
+
+    options = { ...options, activePage: template };
+    response.render(template, options);
+});
 
 // read
 app.get('/getAll', (request, response) => {

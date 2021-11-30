@@ -21,7 +21,7 @@ function resetPassword(){
 })
 .then(response => {
     if(response.status === 200){
-        window.location = "login.html";
+        window.location = "/login";
         return null; 
     }
     return response.text();  

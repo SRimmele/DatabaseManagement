@@ -1,0 +1,38 @@
+<style>
+    body {
+        background-image: url("assets/guitar_background.jpg");
+    }
+</style>
+
+<div class = "form-inline px-5 py-5 dflex justify-content-md-center align-center text-center pt-5">
+    <form id = "basic-search-form" action = "/searchResults" method="get">
+        <div class="input-group mb-3 input-group-lg mt-3 pt-5 px-5">
+            <!-- text search -->
+            <input type="search" class="form-control form-control-lg login-form" id = "search-input" name="search-input" placeholder = "Search songs, artists, genre, lyrics, and more ..." aria-label="Text input with dropdown button">
+            <!-- category search -->
+            <select class="form-select-md" id="searchSelect" name="searchSelect">
+                <option selected value="0"> Categories </option>
+                <option value="1"> Song </option>
+                <option value="2"> Artist </option>
+                <option value="3"> Genre </option>
+                <option value="4"> Lyrics </option>
+            </select>
+            <!-- submit search button -->
+            <button class="btn btn-secondary" type="submit" id="search-btn" onclick = "location.href = 'searchResults.html'">
+                Search
+            </button>
+        </div>
+    </form>
+    
+    <!-- link to adv.search page -->
+    <a href = "/advancedSearch"> Advanced Search </a>
+</div>
+
+<section hidden id="update-row">
+    <label>Name:</label>
+    <input type="text" id="update-name-input">
+    <button id="update-row-btn">Update</button>
+</section>
+
+<script src = "index.js"></script>
+

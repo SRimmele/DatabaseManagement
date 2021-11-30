@@ -22,26 +22,26 @@ function handleFormSubmit(event){
 async function searchByCategory(searchValue, searchCategory){
 
     if(searchCategory === '1' && searchValue){
-        const response = await fetch('http://localhost:5000/song/search/' +searchValue)
+        const response = await fetch('/song/search/' +searchValue)
         .then(response => response.json())
         .then(data => loadSongHTMLTable(data['data'])); 
     }
 
     else if(searchCategory === '2' && searchValue){
-        const response = await fetch('http://localhost:5000/artist/search/' +searchValue)
+        const response = await fetch('/artist/search/' +searchValue)
         .then(response => response.json())
         .then(data => loadArtistHTMLTable(data['data'])); 
     }
 
     else if(searchCategory === '3' && searchValue){ 
-        const response = await fetch('http://localhost:5000/genre/search/' + searchValue)
+        const response = await fetch('/genre/search/' + searchValue)
         .then(response => response.json())
         .then(data => loadArtistHTMLTable(data['data']));  
     }
 
     else if(searchCategory === '4' && searchValue){
         
-        const response = await fetch('http://localhost:5000/lyric/search/' +searchValue)
+        const response = await fetch('/lyric/search/' +searchValue)
         .then(response => response.json())
         .then(data => loadSongHTMLTable(data['data'])); 
     }
