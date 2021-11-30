@@ -392,7 +392,7 @@ class DbService {
 
     async getUserFriends(userID){
         return await new Promise((resolve, reject) => {
-            const query = "SELECT username, email FROM friends, users WHERE connectedToID = users.userID AND friends.userID = ?;"; 
+            const query = "SELECT username FROM friends, users WHERE connectedToID = users.userID AND friends.userID = ?;"; 
             connection.query(query, [userID], (err, results) => {
                 if (err) reject(new Error(err.message)); 
                     resolve(results); 
