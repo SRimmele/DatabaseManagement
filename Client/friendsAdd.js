@@ -23,7 +23,8 @@ async function addFriend(friendUserId){
             method: 'POST', 
             body: JSON.stringify({ friendUserId })
         })
-        location.reload();
+        //location.reload();
+        window.location.href = "/friends";
     } catch (error) {
         alert(error);
     }
@@ -33,7 +34,7 @@ function loadUserHTMLTable(data) {
     const table = document.querySelector('table');
 
     if (data.length === 0) {
-        table.innerHTML = "<tr><td class='no-data' colspan='8'> No usernames are a close match </td></tr>";
+        table.innerHTML = "<tr><td class='no-data text-center' colspan='8'> No usernames are a close match </td></tr>";
         return;
     }
 
