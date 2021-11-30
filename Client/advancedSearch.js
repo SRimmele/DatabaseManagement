@@ -62,6 +62,15 @@ function loadArtistHTMLTable(data) {
     let tableHtml = "";
     let count = 1;
 
+    tableHTML += "<thead>"
+    tableHTML += "<tr>";
+    tableHTML += "<th scope = 'col' colspan='3' class = 'text-center'>";
+    tableHTML += "Artist Results";
+    tableHTML += "</th>";
+    tableHTML += "</tr>";
+    tableHTML += "</thead>";
+    tableHTML += "<tbody>";
+
     data = data.filter((value, index) => data.findIndex(x => x.artistName === value.artistName) === index)
 
     data.forEach(function ({artistName, artistLink}) {
@@ -74,6 +83,8 @@ function loadArtistHTMLTable(data) {
 
         ++count;
     });
+
+    tableHTML += "</tbody>";
 
     table.innerHTML = tableHtml;
 
@@ -91,6 +102,15 @@ function loadSongHTMLTable(data) {
     let tableHtml = "";
     let count = 1;
 
+    tableHTML += "<thead>"
+    tableHTML += "<tr>";
+    tableHTML += "<th scope = 'col' colspan='3' class = 'text-center'>";
+    tableHTML += "Song Results";
+    tableHTML += "</th>";
+    tableHTML += "</tr>";
+    tableHTML += "</thead>";
+    tableHTML += "<tbody>";
+
     data.forEach(function ({songName, songID}) {
         
         tableHtml += "<tr>";
@@ -101,6 +121,8 @@ function loadSongHTMLTable(data) {
 
         ++count;
     });
+
+    tableHTML += "</tbody>";
 
     table.innerHTML = tableHtml;
 }
