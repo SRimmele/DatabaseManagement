@@ -41,13 +41,13 @@ function loadUserHTMLTable(data) {
     let tableHtml = "";
 
     tableHtml += "<thead>";
-    tableHtml += "<th scope = 'col' class = 'text-center' colspan = '1'>Users</th>";
+    tableHtml += "<th scope = 'col' colspan='2' class = 'text-center'> Users </th>"
     tableHtml += "</thead>";
 
     data.forEach(function ({username, userID}) {
         tableHtml += "<tr class = 'dflex'>";
-        tableHtml += `<td scope = 'row' colspan='2' class = ''>${username}`;
-        tableHtml += `<button class="btn btn-secondary add-row-btn" onclick="addFriend(${userID})"> Add friend </td>`;
+        tableHtml += `<td scope = 'row' colspan='1' class = 'align-middle'>${username}</td>`;
+        tableHtml += `<td class = 'justify-content-end'><button class="btn btn-secondary add-row-btn" onclick="addFriend(${userID})"> Add friend </td>`;
         tableHtml += "</tr>";
     });
 
