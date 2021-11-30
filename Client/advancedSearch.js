@@ -78,14 +78,23 @@ function loadArtistHTMLTable(data) {
     let tableHtml = ''
     let count = 1
 
+    tableHtml += "<thead>"
+    tableHtml += "<tr>"
+    tableHtml += "<th scope = 'col' colspan='3' class = 'text-center'>"
+    tableHtml += "Artist Results"
+    tableHtml += "</th>"
+    tableHtml += "</tr>"
+    tableHtml += "</thead>"
+    tableHtml += "<tbody>"
+
     data = data.filter(
         (value, index) =>
             data.findIndex((x) => x.artistName === value.artistName) === index
     )
 
-    data.forEach(function ({ artistName, artistLink }) {
+    data.forEach(function ({ artistName}) {
         tableHtml += '<tr>'
-        tableHtml += `<td>${count}</td>`
+        tableHtml += `<td class = "text-center">${count}</td>`
         tableHtml += `<td>${artistName}</td>`
         tableHtml += `<td><button class="btn btn-secondary redirect-row-btn" data-id=${data.ID} onclick="window.location.href='/artistSearchResults'"> More Info </td>`
         tableHtml += '</tr>'
@@ -110,7 +119,16 @@ function loadSongHTMLTable(data) {
     let tableHtml = ''
     let count = 1
 
-    data.forEach(function ({ songName, songID }) {
+    tableHtml += "<thead>"
+    tableHtml += "<tr>"
+    tableHtml += "<th scope = 'col' colspan='3' class = 'text-center'>"
+    tableHtml += "Song Results"
+    tableHtml += "</th>"
+    tableHtml += "</tr>"
+    tableHtml += "</thead>"
+    tableHtml += "<tbody>"
+
+    data.forEach(function ({ songName}) {
         tableHtml += '<tr>'
         tableHtml += `<td class = 'text-center'>${count}</td>`
         tableHtml += `<td>${songName}</td>`
