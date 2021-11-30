@@ -203,7 +203,7 @@ class DbService {
     async searchByUser(user) {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM users WHERE username LIKE CONCAT('%', ?, '%') ORDER BY username;";
+                const query = "SELECT * FROM users WHERE users.userID NOT IN (SELECT connectedToID FROM friends WHERE userID = 1) AND username LIKE CONCAT('%', ?, '%') ORDER BY username;";
 
                 connection.query(query, [user], (err, results) => {
                     if (err) reject(new Error(err.message));
