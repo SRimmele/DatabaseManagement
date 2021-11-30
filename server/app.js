@@ -12,6 +12,7 @@ dotenv.config();
 
 const dbService = require('./dbService');
 const { stringsEqual } = require('./helpers/stringsEqual');
+const { isNullOrWhitespace } = require('./utils/stringHelper');
 
 app.use(cors());
 app.use(express.json());
@@ -66,6 +67,7 @@ app.use((request, response, next) => {
             break;
         
         case '/logout':
+            request.session.destroy();
             template = 'logout';
             break;
 
@@ -198,11 +200,6 @@ app.get('/user/currentUser', (request, response) => {
         response.json(data);
     })
     .catch(err => response.status(400).send(err.message)); 
-})
-
-app.get('/user/logout', (request, response) => {
-    request.session.destroy(); 
-    response.send(); 
 })
 
 app.post('/user/passwordReset', (request, response) => {
