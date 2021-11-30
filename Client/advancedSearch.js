@@ -114,7 +114,7 @@ function loadSongHTMLTable(data) {
     data.forEach(function ({songName, songID}) {
         
         tableHtml += "<tr>";
-        tableHtml += `<td>${count}</td>`;
+        tableHtml += `<td class = 'text-center'>${count}</td>`;
         tableHtml += `<td>${songName}</td>`; 
         tableHtml += `<td><button class="btn btn-secondary redirect-row-btn" data-id=${data.ID}> More Info </td>`;
         tableHtml += "</tr>";
