@@ -45,24 +45,30 @@
                             Friends
                         </a>
                     </li>
-                    <li class = "nav-item pe-3">
-                        {{#stringsEqual activePage "login" }}
-                            <a class = "nav-link active" href="/login">
-                        {{else}}
-                            <a class = "nav-link" href="/login">
-                        {{/stringsEqual}}
-                            Hello!
-                        </a>
-                    </li>
-                    <li class = "nav-item pe-3">
-                        {{#stringsEqual activePage "logout" }}
-                            <a class = "nav-link active" href="/logout">
-                        {{else}}
-                            <a class = "nav-link" href="/logout">
-                        {{/stringsEqual}}
-                            Logout
-                        </a>
-                    </li>
+                    {{#if isLoggedIn}}
+                        <li class = "nav-item pe-3">
+                            Hello, {{username}}!
+                        </li>
+                        <li class = "nav-item pe-3">
+                            {{#stringsEqual activePage "logout" }}
+                                <a class = "nav-link active" href="/logout">
+                            {{else}}
+                                <a class = "nav-link" href="/logout">
+                            {{/stringsEqual}}
+                                Logout
+                            </a>
+                        </li>
+                    {{else}}
+                        <li class = "nav-item pe-3">
+                            {{#stringsEqual activePage "login" }}
+                                <a class = "nav-link active" href="/login">
+                            {{else}}
+                                <a class = "nav-link" href="/login">
+                            {{/stringsEqual}}
+                                Login
+                            </a>
+                        </li>
+                    {{/if}}
                 </ul>
             </div>
         </div>

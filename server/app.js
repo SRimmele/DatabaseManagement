@@ -85,7 +85,12 @@ app.use((request, response, next) => {
             return next();
     }
 
-    options = { ...options, activePage: template };
+    options = {
+        ...options,
+        activePage: template,
+        isLoggedIn: request.session && !isNullOrWhitespace(request.session.username),
+        username: request.session && request.session.username ? request.session.username : ""
+    };
     response.render(template, options);
 });
 
