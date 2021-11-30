@@ -45,7 +45,7 @@ app.use(async (request, response, next) => {
             break;
 
         case '/artistSearchResults':
-            template = 'advancedSearch';
+            template = 'artistSearchResults';
             break;
 
         case '/createAccount':

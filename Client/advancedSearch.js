@@ -87,7 +87,7 @@ function loadArtistHTMLTable(data) {
         tableHtml += '<tr>'
         tableHtml += `<td>${count}</td>`
         tableHtml += `<td>${artistName}</td>`
-        tableHtml += `<td><button class="btn btn-secondary redirect-row-btn" data-id=${data.ID}> More Info </td>`
+        tableHtml += `<td><button class="btn btn-secondary redirect-row-btn" data-id=${data.ID} onclick="window.location.href='/artistSearchResults'"> More Info </td>`
         tableHtml += '</tr>'
 
         ++count
@@ -114,7 +114,7 @@ function loadSongHTMLTable(data) {
         tableHtml += '<tr>'
         tableHtml += `<td class = 'text-center'>${count}</td>`
         tableHtml += `<td>${songName}</td>`
-        tableHtml += `<td><button class="btn btn-secondary redirect-row-btn" data-id=${data.ID}> More Info </td>`
+        tableHtml += `<td><button class="btn btn-secondary redirect-row-btn" data-id=${data.ID} onclick="window.location.href='/songSearchResult'"> More Info </td>`
         tableHtml += '</tr>'
 
         ++count
