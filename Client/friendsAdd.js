@@ -14,24 +14,20 @@ async function searchUsers(event){
     .then(data => loadUserHTMLTable(data['data'])); 
 } 
 
-//const addBtn = document.querySelector('#add-row-btn');
-
-// addBtn.onclick = function(username) {
-
-//     fetch('http://localhost:5000/user/friends',{
-//         headers: {
-//             'Content-type': 'application/json'
-//         }, 
-//         method: 'POST', 
-//         body: JSON.stringify({name: username})
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//         if(data.succes){
-//             location.reload(); 
-//         }
-//     }); 
-// }
+async function addFriend(friendUserId){
+    try {
+        const response = await fetch('/user/addFriend',{
+            headers: {
+                'Content-type': 'application/json'
+            }, 
+            method: 'POST', 
+            body: JSON.stringify({ friendUserId })
+        })
+        location.reload();
+    } catch (error) {
+        alert(error);
+    }
+}
 
 function loadUserHTMLTable(data) {
     const table = document.querySelector('table');
@@ -47,11 +43,10 @@ function loadUserHTMLTable(data) {
     tableHtml += "<th scope = 'col' class = 'text-center' colspan = '1'>Users</th>";
     tableHtml += "</thead>";
 
-    data.forEach(function ({username}) {
-        
+    data.forEach(function ({username, userID}) {
         tableHtml += "<tr class = 'dflex'>";
         tableHtml += `<td scope = 'row' colspan='2' class = ''>${username}`;
-        tableHtml += `<button class="btn btn-secondary add-row-btn" data-id=${data.ID}> Add friend </td>`;
+        tableHtml += `<button class="btn btn-secondary add-row-btn" onclick="addFriend(${userID})"> Add friend </td>`;
         tableHtml += "</tr>";
     });
 

@@ -13,6 +13,7 @@ dotenv.config();
 const dbService = require('./dbService');
 const { stringsEqual } = require('./helpers/stringsEqual');
 const { isNullOrWhitespace } = require('./utils/stringHelper');
+const { isLoggedIn, sessionGuard }  = require('./utils/sessionHelper');
 
 app.use(cors());
 app.use(express.json());
@@ -29,9 +30,10 @@ app.engine('handlebars', handlebars.engine({
 app.set('view engine', 'handlebars'); 
 app.set('views', './views'); 
 
-app.use((request, response, next) => {
+app.use(async (request, response, next) => {
     let template = 'index';
     let options = {};
+    const db = dbService.getDbServiceInstance();
 
     switch (request.path) {
         case '/':
@@ -56,6 +58,10 @@ app.use((request, response, next) => {
         
         case '/friends':
             template = 'friends';
+            if (!isLoggedIn(request.session))
+                return response.redirect('/');
+            const friends = await db.getUserFriends(request.session.userID);
+            options.friends = friends;
             break;
         
         case '/friendsAdd':
@@ -176,8 +182,8 @@ app.post('/user/login', (request, response) => {
 
     result
     .then(data => {
-        console.dir(data); 
         request.session.username = data.username; 
+        request.session.userID = data.userID;
         console.dir(request.session)
         response.json({success : data})
     })
@@ -267,11 +273,30 @@ app.get('/advanced/search', (request, response) => {
 //     .catch(err => console.log(err)); 
 // })
 
+app.post('/user/addFriend', (request, response) => {
+    if (!sessionGuard(request, response)) {
+        return;
+    }
+
+    const { friendUserId } = request.body; 
+    const db = dbService.getDbServiceInstance(); 
+
+    const result = db.addUserFriend(request.session.userID, friendUserId); 
+
+    result
+    .then(data => response.json(data))
+    .catch(err => console.log(err)); 
+})
+
 app.get('/user/search/:user', (request, response) => {
-    const {user} = request.params;
+    if (!sessionGuard(request, response)) {
+        return;
+    }
+
+    const {user: otherUsername} = request.params;
     const db = dbService.getDbServiceInstance();
 
-    const result = db.searchByUser(user);
+    const result = db.searchByUser(request.session.userID, otherUsername);
 
     result
     .then(data => response.json({data : data}))

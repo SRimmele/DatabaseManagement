@@ -6,12 +6,17 @@
                 <h3 class = "card-title"> Add a new friend! </h3>
             </div>
             <div class = "card-body">
-                <button class = "btn btn-secondary" type = "submit" onclick = "location.href = 'friendsAdd.html'"> + </button>
+                <button class = "btn btn-secondary" type = "submit" onclick = "location.href = '/friendsAdd'"> + </button>
             </div>
         </div>
     </div>
 
     <card id = "card"></card>   
+    <ul>
+        {{#each friends}}
+            <li>{{this.username}} - {{this.email}}</li>
+        {{/each}}
+    </ul>
 </div>
 
 <script src = "friends.js"></script>

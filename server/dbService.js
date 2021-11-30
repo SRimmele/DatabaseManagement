@@ -74,13 +74,13 @@ class DbService {
 
     async insertNewName(name) {
         try {
-                const insertId = await new Promise((resolve, reject) => {
+            const insertId = await new Promise((resolve, reject) => {
                 const query = "INSERT INTO artist (artistName) VALUES (?);";
 
                 connection.query(query, [name] , (err, result) => {
                     if (err) reject(new Error(err.message));
-                    //console.log(result); 
-                    resolve(result.insertId);
+                        //console.log(result); 
+                        resolve(result.insertId);
                 })
             });
             //console.log(insertId);
@@ -200,12 +200,12 @@ class DbService {
         }
     }; 
 
-    async searchByUser(user) {
+    async searchByUser(currentUserId, friendUsername) {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM users WHERE users.userID NOT IN (SELECT connectedToID FROM friends WHERE userID = 1) AND username LIKE CONCAT('%', ?, '%') ORDER BY username;";
+                const query = "SELECT * FROM users WHERE users.userID NOT IN (SELECT connectedToID FROM friends WHERE userID = ?) AND username LIKE CONCAT('%', ?, '%') ORDER BY username;";
 
-                connection.query(query, [user], (err, results) => {
+                connection.query(query, [currentUserId, friendUsername], (err, results) => {
                     if (err) reject(new Error(err.message));
                     resolve(results);
                 })
@@ -374,18 +374,29 @@ class DbService {
         return response; 
     }
 
+    async addUserFriend(currentUserID, friendUserID) {
+        try {
+            await new Promise((resolve, reject) => {
+                const query = "INSERT INTO friends (`userID`, `connectedToID`) VALUES (?, ?);";
 
-    async getUserFriends(username){
-        const response = await new Promise((resolve, reject) => {
-            const query = "SELECT username FROM friends, users WHERE connectedToID = users.userID AND friends.userID = ?;"; 
-            connection.query(query, [username], (err, results) => {
+                connection.query(query, [currentUserID, friendUserID], (err) => {
+                        if (err) reject(new Error(err.message));
+                            resolve();
+                    })
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+    async getUserFriends(userID){
+        return await new Promise((resolve, reject) => {
+            const query = "SELECT username, email FROM friends, users WHERE connectedToID = users.userID AND friends.userID = ?;"; 
+            connection.query(query, [userID], (err, results) => {
                 if (err) reject(new Error(err.message)); 
-                resolve(results); 
+                    resolve(results); 
             })
-            if(response.length == 0)
-                throw new Error("Oh, no! You dont't have any friends!"); 
-            else
-                return response[0];  
         })
     }
 
