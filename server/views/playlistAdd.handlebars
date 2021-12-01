@@ -1,0 +1,29 @@
+<div class = "text-center mt-3 pt-5 px-5">
+    <h3>Search for friends by username in the text box below</h3>
+</div>
+
+    <form id = "basic-search-form">
+        <div class="input-group mb-3 input-group-lg mt-3 pt-5 px-5">
+            <!-- text search -->
+            <input type="search" class="form-control form-control-lg login-form" id = "search-input" name="search-input" placeholder = "Search songs, artists, genre, lyrics, and more ..." aria-label="Text input with dropdown button">
+            <!-- category search -->
+            <select class="form-select-md" id="searchSelect" name="searchSelect">
+                <option selected value="0"> Categories </option>
+                <option value="1"> Song </option>
+                <option value="2"> Artist </option>
+                <option value="3"> Genre </option>
+                <option value="4"> Lyrics </option>
+            </select>
+            <!-- submit search button -->
+            <button class="btn btn-secondary" type="submit" id="search-btn">
+                Search
+            </button>
+        </div>
+    </form>
+
+<div class = "px-5">
+    <table class = "table table-hover table-striped px-5" id = "table">
+    </table>
+</div>
+
+<script src = "playlistAdd.js"></script>
