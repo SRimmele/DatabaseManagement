@@ -1,7 +1,7 @@
 <div class = "card w-75 mx-auto text-dark bg-light">
     <h5 class = "card-header text-center">
         <div class = "card-title">
-            Song: 
+            <b>Song:</b> 
             <!-- song name here -->
             {{song.songName}}
         </div>
@@ -9,20 +9,23 @@
 
     <div class = "card-body">
         <div>
-            Artist: <!-- artist name goes here -->
-            {{artistName}}
+            <b>Artist:</b> <!-- artist name goes here -->
+            <a href = "http://www.lyricsdepot.com{{song.artistLink}}">{{artistName}}</a>
         </div>
+        <br>
         <div>
-            Lyrics: <!-- all genres related go here -->
+            <b>Lyrics:</b> <!-- all genres related go here -->
             {{song.lyrics}}
+        </div>
+        <br>
+        <div class = "">
+            Need more information? <a href = "http://www.lyricsdepot.com{{song.link}}"> Click here! </a>
         </div>
     </div>
 
     <div class = "card-footer">
-        Need more information? Click here!
-        <!-- This is where the link goes -->
         <button type = "button" class = "btn btn-secondary" onclick = "window.location = '/advancedSearch'">
-            Back to results 
+            <- Back to results 
         </button>
     </div>
 </div>
