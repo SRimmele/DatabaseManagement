@@ -1,11 +1,11 @@
+const playlistName = document.querySelector('#playlist-title'); 
+const playlistBtn = documnet.querySelector('#playlist-btn'); 
+
+
 
 
 async function loadPlaylists(data) {
     const card = document.querySelector('card');
-
-    // const response =  await fetch('http://localhost:5000/user/friend')
-    // .then(response => response.json())
-    // .then(data => getUserFriends()); 
 
     let playlistCardHtml = "";
 

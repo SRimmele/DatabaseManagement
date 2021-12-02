@@ -92,11 +92,11 @@ function loadArtistHTMLTable(data) {
             data.findIndex((x) => x.artistName === value.artistName) === index
     )
 
-    data.forEach(function ({ artistName}) {
+    data.forEach(function ({artistID, artistName}) {
         tableHtml += '<tr>'
         tableHtml += `<td class = "text-center">${count}</td>`
         tableHtml += `<td>${artistName}</td>`
-        tableHtml += `<td><button class="btn btn-secondary redirect-row-btn" data-id=${data.ID} onclick="window.location.href='/artistSearchResults'"> More Info </td>`
+        tableHtml += `<td><button class="btn btn-secondary redirect-row-btn" onclick="window.location.href='/artistSearchResults?artistID=${artistID}'"> More Info </td>`
         tableHtml += '</tr>'
 
         ++count
@@ -128,11 +128,11 @@ function loadSongHTMLTable(data) {
     tableHtml += "</thead>"
     tableHtml += "<tbody>"
 
-    data.forEach(function ({ songName}) {
+    data.forEach(function ({songID, songName}) {
         tableHtml += '<tr>'
         tableHtml += `<td class = 'text-center'>${count}</td>`
         tableHtml += `<td>${songName}</td>`
-        tableHtml += `<td><button class="btn btn-secondary redirect-row-btn" data-id=${data.ID} onclick="window.location.href='/songSearchResult'"> More Info </td>`
+        tableHtml += `<td><button class="btn btn-secondary redirect-row-btn" onclick="window.location.href='/songSearchResult?songID=${songID}'"> More Info </td>`
         tableHtml += '</tr>'
 
         ++count

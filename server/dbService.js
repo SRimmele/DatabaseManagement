@@ -92,25 +92,6 @@ class DbService {
         }
     }
 
-    async deleteRowById(id) {
-        try {
-            id = parseInt(id, 10); 
-            const response = await new Promise((resolve, reject) => {
-                const query = "DELETE FROM artist WHERE artistID = ?";
-    
-                connection.query(query, [id] , (err, result) => {
-                    if (err) reject(new Error(err.message));
-                    resolve(result.affectedRows);
-                })
-            });
-    
-            return response === 1 ? true : false;
-        } catch (error) {
-            console.log(error);
-            return false;
-        }
-    }
-
     async updateNameById(id, name) {
         try {
             id = parseInt(id, 10); 
@@ -149,6 +130,23 @@ class DbService {
         }
     }; 
 
+    async searchForArtistBySong(songID){
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT a.artistName AS artistName FROM song AS s JOIN artist AS a WHERE s.artistLink = a.link AND s.songID = ?";
+
+                connection.query(query, [songID], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                })
+            });
+
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     async searchByGenre(mGenre, oGenre) {
         try {
             const response = await new Promise((resolve, reject) => {
@@ -183,6 +181,23 @@ class DbService {
         }
     }; 
 
+    async searchForSongByArtistID(artistID){
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT s.songName FROM song AS s JOIN artist AS a WHERE s.artistLink = a.link AND a.artistID = ? ORDER BY s.songName";
+
+                connection.query(query, [artistID], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                })
+            });
+
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     async searchByLyrics(lyrics) {
         try {
             const response = await new Promise((resolve, reject) => {
@@ -199,6 +214,23 @@ class DbService {
             console.log(error);
         }
     }; 
+
+    async searchBySongID(songID){
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM song AS s JOIN artist AS a WHERE s.artistLink = a.link AND s.songID = ?";
+
+                connection.query(query, [songID], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                })
+            });
+
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     async searchByUser(currentUserId, friendUsername) {
         try {
@@ -337,7 +369,7 @@ class DbService {
 
     async advancedSearch(queryParams){
         const response = await new Promise((resolve, reject) => {
-            let query = `SELECT s.songName, s.link as songLink, a.artistName, a.link as artistLink 
+            let query = `SELECT s.songName, s.link as songLink, a.artistName, a.link as artistLink, a.artistID as artistID, s.songID as songID
                             FROM song as s JOIN artist as a
                             WHERE s.artistLink = a.link`;  
             const popularity = ` AND a.popularity BETWEEN ${popularityTable[queryParams.popularity][0]} AND ${popularityTable[queryParams.popularity][1]} `
@@ -389,15 +421,35 @@ class DbService {
         }
     }
 
-
     async getUserFriends(userID){
         return await new Promise((resolve, reject) => {
-            const query = "SELECT username FROM friends, users WHERE connectedToID = users.userID AND friends.userID = ?;"; 
+            const query = "SELECT username, connectedToID AS friendID FROM friends, users WHERE connectedToID = users.userID AND friends.userID = ?;"; 
             connection.query(query, [userID], (err, results) => {
                 if (err) reject(new Error(err.message)); 
                     resolve(results); 
             })
         })
+    }
+
+    
+    async removeUserFriend(currentUserID, friendUserID) {
+        try {
+            //id = parseInt(friendUserID, 10); 
+            const response = await new Promise((resolve, reject) => {
+                const query = "DELETE FROM friends WHERE userID = ? AND connectedToID = ?;";
+    
+                const {sql} = connection.query(query, [currentUserID, friendUserID] , (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result.affectedRows);
+                })
+                console.log(sql); 
+            });
+    
+            return response === 1 ? true : false;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
     }
 
     // async getFriendsRecents(){

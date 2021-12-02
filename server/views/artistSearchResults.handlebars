@@ -1,53 +1,56 @@
-
-<div class = "card w-75 mx-auto text-dark bg-light">
-    <h5 class = "card-header text-center">
-        <div class = "card-title">
-            Artist: 
+<div class="card w-75 mx-auto text-dark bg-light">
+    <h5 class="card-header text-center">
+        <div class="card-title">
+            Artist:
             <!-- arist name here -->
+            {{artist.artistName}}
         </div>
     </h5>
-
-    <div class = "card-body">
+    <div class="card-body">
         <div>
-            Popularity: <!-- popularity score goes here -->
+            Popularity:
+            <!-- popularity score goes here -->
+            {{artist.popularity}}
         </div>
         <div>
-            Genres: <!-- all genres related go here -->
+            Genres:
+            <!-- all genres related go here -->
+            {{artist.mainGenreID}}; {{artist.otherGenreID}}
         </div>
         <div>
-            <table class = "table table-striped">
+            <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope = "col" colspan = "2"> 
-                            Song amount: <!-- song amount goes here -->
+                        <th scope="col" colspan="2">
+                            Song amount:
+                            <!-- song amount goes here -->
+                            {{artist.songAmt}}
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <th scope = "row">
-                            #
-                        </th>
-                        <th>
-                            Song
-                        </th>
+                        <th>#</th>
+                        <th>Song</th>
                     </tr>
-                    <tr>
-
-                    </tr>
+                    {{#each songs}}<tr>
+                        <td scope="row">
+                            {{add @index 1}}
+                        </td>
+                        <td>
+                            {{this.songName}}
+                        </td>
+                    </tr>{{/each}}
                 </tbody>
             </table>
-        </div> 
+        </div>
     </div>
 
-    <div class = "card-footer">
+    <div class="card-footer">
         Need more information? Click here!
         <!-- This is where the link goes -->
-        <button type = "button" class = "btn btn-secondary">
-            Back to results 
+        <button type="button" class="btn btn-secondary" onclick = "window.location = '/advancedSearch'">
+            Back to results
         </button>
     </div>
 </div>
-
-<script src = ""></script>
-

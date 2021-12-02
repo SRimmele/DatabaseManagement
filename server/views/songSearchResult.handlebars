@@ -3,22 +3,25 @@
         <div class = "card-title">
             Song: 
             <!-- song name here -->
+            {{song.songName}}
         </div>
     </h5>
 
     <div class = "card-body">
         <div>
             Artist: <!-- artist name goes here -->
+            {{artistName}}
         </div>
         <div>
             Lyrics: <!-- all genres related go here -->
+            {{song.lyrics}}
         </div>
     </div>
 
     <div class = "card-footer">
         Need more information? Click here!
         <!-- This is where the link goes -->
-        <button type = "button" class = "btn btn-secondary">
+        <button type = "button" class = "btn btn-secondary" onclick = "window.location = '/advancedSearch'">
             Back to results 
         </button>
     </div>
